@@ -40,7 +40,7 @@
             [sublayer removeFromSuperlayer];
         }
 
-		[self.layer addSublayer:[_image layerTree]];
+		[self.layer addSublayer:[_image layerTreeCached]];
 	}
 }
 

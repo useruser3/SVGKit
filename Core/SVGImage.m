@@ -75,7 +75,7 @@
 	
 	self = [super init];
 	if (self) {
-		self.rootElement = [[SVGSVGElement alloc] initWithName:@"svg"];
+		self.rootElement = [[[SVGSVGElement alloc] initWithName:@"svg"] autorelease];
 		_width = SVGLengthZero;
 		_height = SVGLengthZero;
 		
@@ -95,7 +95,7 @@
 	
 	self = [super init]; 
 	if (self) {
-		self.rootElement = [[SVGSVGElement alloc] initWithName:@"svg"];
+		self.rootElement = [[[SVGSVGElement alloc] initWithName:@"svg"] autorelease];
 		_width = SVGLengthZero;
 		_height = SVGLengthZero;
 		
@@ -113,7 +113,7 @@
 {
 	self = [super init];
 	if (self) {
-		self.rootElement = [[SVGSVGElement alloc] initWithName:@"svg"];
+		self.rootElement = [[[SVGSVGElement alloc] initWithName:@"svg"] autorelease];
 		
         _width = SVGLengthGetWidth(frame);
         _height = SVGLengthGetHeight(frame);
@@ -240,7 +240,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 
 - (CALayer *)newLayer {
 	
-	CALayer* _layer = [CALayer layer];
+	CALayer* _layer = [[CALayer layer] retain];
 		_layer.frame = CGRectMake(0.0f, 0.0f, SVGLengthAsPixels(self.svgWidth), SVGLengthAsPixels(self.svgHeight));
 	
 	return _layer;

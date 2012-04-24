@@ -360,7 +360,7 @@ CGFloat SVGPercentageFromString (const char *string) {
 	return atoi(string) / 100.0f;
 }
 
-CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close) {
+CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close) {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	size_t len = strlen(string);

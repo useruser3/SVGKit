@@ -42,7 +42,7 @@
         for (CALayer *sublayer in [self.layer sublayers]) {
             [sublayer removeFromSuperlayer];
         }
-        [self.layer addSublayer:[_document layerTree]];
+        [self.layer addSublayer:[_document layerTreeCached]];
     }
 }
 

@@ -112,7 +112,7 @@
 }
 
 - (CALayer *) newLayer {
-	CAShapeLayer* _shapeLayer = [CAShapeLayerWithHitTest layer];
+	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
 	_shapeLayer.name = self.identifier;
 		[_shapeLayer setValue:self.identifier forKey:kSVGElementIdentifier];
 	_shapeLayer.opacity = _opacity;

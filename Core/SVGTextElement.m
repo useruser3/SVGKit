@@ -81,7 +81,7 @@
                                          size:_fontSize];
     CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
     
-    CATextLayer *label = [[[CATextLayer alloc] init] autorelease];
+    CATextLayer *label = [[CATextLayer alloc] init];
     [label setName:self.identifier];
     [label setFont:_fontFamily];
     [label setFontSize:_fontSize];  

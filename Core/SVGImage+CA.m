@@ -7,7 +7,7 @@
 static const char *kLayerTreeKey = "svgkit.layertree";
 
 - (CALayer *)layerWithIdentifier:(NSString *)identifier {
-	return [self layerWithIdentifier:identifier layer:self.layerTree];
+	return [self layerWithIdentifier:identifier layer:self.layerTreeCached];
 }
 
 - (CALayer *)layerWithIdentifier:(NSString *)identifier layer:(CALayer *)layer {
@@ -25,18 +25,23 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	return nil;
 }
 
-- (CALayer *)layerTree {
+- (CALayer *)layerTreeCached {
 	CALayer *cachedLayerTree = objc_getAssociatedObject(self, (void *) kLayerTreeKey);
 	
 	if (!cachedLayerTree) {
-		cachedLayerTree = [self layerWithElement:self.rootElement];
+		cachedLayerTree = [[self newLayerTree] autorelease]; // we're going to associate it using OBJC_ASSOCIATION_RETAIN_NONATOMIC
 		objc_setAssociatedObject(self, (void *) kLayerTreeKey, cachedLayerTree, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return cachedLayerTree;
 }
 
-- (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element {
+-(CALayer *)newLayerTree
+{
+	return [self newLayerWithElement:self.rootElement];
+}
+
+- (CALayer *)newLayerWithElement:(SVGElement <SVGLayeredElement> *)element {
 	CALayer *layer = [element newLayer];
 	
 	if (![element.children count]) {
@@ -45,7 +50,7 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	
 	for (SVGElement *child in element.children) {
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
-			CALayer *sublayer = [self layerWithElement:(id<SVGLayeredElement>)child];
+			CALayer *sublayer = [self newLayerWithElement:(id<SVGLayeredElement>)child];
 
 			if (!sublayer) {
 				continue;
@@ -91,7 +96,7 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 {
 	NSMutableDictionary* layersByElementId = [NSMutableDictionary dictionary];
 	
-	CALayer* rootLayer = [self layerTree];
+	CALayer* rootLayer = [self layerTreeCached];
 	
 	[self addSVGLayerTree:rootLayer withIdentifier:self.rootElement.identifier toDictionary:layersByElementId];
 	

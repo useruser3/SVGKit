@@ -97,7 +97,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 {
 	if( self.parserExtensions == nil )
 	{
-		self.parserExtensions = [NSMutableArray new];
+		self.parserExtensions = [NSMutableArray array];
 	}
 	
 	[self.parserExtensions addObject:extension];
@@ -245,10 +245,13 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	NSString *name = NSStringFromLibxmlString(localname);
 	NSMutableDictionary *attrs = NSDictionaryFromLibxmlAttributes(attributes, nb_attributes);
 	
+	/**
+	 Debugging:
 	//NSString *url = NSStringFromLibxmlString(URI);
 	NSString *prefix2 = nil;
 	if( prefix != NULL )
 		prefix2 = NSStringFromLibxmlString(prefix);
+	 */
 	
 	NSString *objcURIString = nil;
 	if( URI != NULL )

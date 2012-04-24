@@ -83,7 +83,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 }
 
 - (CALayer *)newLayer {
-	__block CALayer *layer = [CALayer layer];
+	__block CALayer *layer = [[CALayer layer] retain];
 
 	layer.name = self.identifier;
 	[layer setValue:self.identifier forKey:kSVGElementIdentifier];

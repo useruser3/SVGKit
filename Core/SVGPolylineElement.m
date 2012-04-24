@@ -17,7 +17,7 @@
 	id value = nil;
 	
 	if ((value = [attributes objectForKey:@"points"])) {
-		CGMutablePathRef path = SVGPathFromPointsInString([value UTF8String], NO);
+		CGMutablePathRef path = createPathFromPointsInString([value UTF8String], NO);
 		
 		[self setPathByCopyingPathFromLocalSpace:path];
 		CGPathRelease(path);

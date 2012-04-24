@@ -80,7 +80,7 @@ static NSDictionary *elementMap;
 			[attributes addEntriesFromDictionary:[SVGParser NSDictionaryFromCSSAttributes:style]];
 		}
 		
-		SVGElement *element = [[elementClass alloc] initWithName:name];
+		SVGElement *element = [[[elementClass alloc] initWithName:name] autorelease];
 		[element parseAttributes:attributes];
 		
 		/** special case: <svg:svg ... version="XXX"> */
