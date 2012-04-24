@@ -24,6 +24,8 @@
 
 #import "SVGParserExtension.h"
 
+#import "SVGElement.h"
+
 /*! RECOMMENDED: leave this set to 1 to get warnings about "legal, but poorly written" SVG */
 #define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1
 
@@ -39,6 +41,7 @@
 	BOOL _storingChars;
 	NSMutableString *_storedChars;
 	NSMutableArray *_elementStack;
+	SVGElement *_rootNode;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 	SVGDocument *_document;
 #else
@@ -59,7 +62,7 @@
 
 - (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 
-- (BOOL)parse:(NSError **)outError;
+- (SVGElement*)parse:(NSError **)outError;
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css;
 

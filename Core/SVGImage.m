@@ -11,14 +11,17 @@
 @interface SVGImage ()
 
 /*! Only preserved for temporary backwards compatibility */
-- (BOOL)parseFileAtPath:(NSString *)aPath;
+- (SVGSVGElement*)parseFileAtPath:(NSString *)aPath;
 /*! Only preserved for temporary backwards compatibility */
--(BOOL)parseFileAtURL:(NSURL *)url;
+-(SVGSVGElement*)parseFileAtURL:(NSURL *)url;
 
-- (BOOL)parseFileAtPath:(NSString *)aPath error:(NSError**) error;
-- (BOOL)parseFileAtURL:(NSURL *)url error:(NSError**) error;
+- (SVGSVGElement*)parseFileAtPath:(NSString *)aPath error:(NSError**) error;
+- (SVGSVGElement*)parseFileAtURL:(NSURL *)url error:(NSError**) error;
 
 @property (nonatomic, readwrite) SVGSVGElement* rootElement;
+@property (nonatomic, readwrite) SVGLength svgWidth;
+@property (nonatomic, readwrite) SVGLength svgHeight;
+
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
@@ -75,17 +78,21 @@
 	
 	self = [super init];
 	if (self) {
-		self.rootElement = [[[SVGSVGElement alloc] initWithName:@"svg"] autorelease];
-		_width = SVGLengthZero;
-		_height = SVGLengthZero;
+		self.svgWidth = SVGLengthZero;
+		self.svgHeight = SVGLengthZero;
 		
 		NSError* parseError = nil;
-		if (![self parseFileAtPath:aPath error:&parseError]) {
+		self.rootElement = [self parseFileAtPath:aPath error:&parseError];
+		if ( self.rootElement == nil ) {
 			NSLog(@"[%@] MISSING OR CORRUPT FILE, OR FILE USES FEATURES THAT SVGKit DOES NOT YET SUPPORT, COULD NOT CREATE DOCUMENT: path = %@, error = %@", [self class], aPath, parseError);
 			
 			[self release];
 			return nil;
 		}
+		
+		self.svgWidth = self.rootElement.documentWidth;
+		self.svgHeight = self.rootElement.documentHeight;
+		
 	}
 	return self;
 }
@@ -95,11 +102,11 @@
 	
 	self = [super init]; 
 	if (self) {
-		self.rootElement = [[[SVGSVGElement alloc] initWithName:@"svg"] autorelease];
 		_width = SVGLengthZero;
 		_height = SVGLengthZero;
 		
-		if (![self parseFileAtURL:url]) {
+		self.rootElement = [self parseFileAtURL:url];
+		if ( self.rootElement == nil ) {
 			NSLog(@"[%@] ERROR: COULD NOT FIND SVG AT URL = %@", [self class], url);
 			
 			[self release];
@@ -201,40 +208,44 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
 
 
-- (BOOL)parseFileAtPath:(NSString *)aPath error:(NSError**) error {
-	SVGParser* defaultParser = [SVGParser parserPlainSVGDocument:[SVGDocument documentFromFilename:aPath] ];
+- (SVGSVGElement*)parseFileAtPath:(NSString *)aPath error:(NSError**) error {
 	
-	if (![defaultParser parse:error]) {
+	SVGDocument* parsedDocument = [SVGDocument documentFromFilename:aPath];
+	SVGParser* defaultParser = [SVGParser parserPlainSVGDocument:parsedDocument];
+	
+	SVGSVGElement* rootNode = (SVGSVGElement*) [defaultParser parse:error];
+	if ( rootNode == nil ) {
 		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
 		[defaultParser release];
 		
-		return NO;
+		return nil;
 	}
 	
-	return YES;
+	return rootNode;
 }
 
-- (BOOL)parseFileAtPath:(NSString *)aPath {
+- (SVGSVGElement*)parseFileAtPath:(NSString *)aPath {
 	return [self parseFileAtPath:aPath error:nil];
 }
 
 
--(BOOL)parseFileAtURL:(NSURL *)url error:(NSError**) error {
+-(SVGSVGElement*)parseFileAtURL:(NSURL *)url error:(NSError**) error {
 	SVGParser* defaultParser = [SVGParser parserPlainSVGDocument:[SVGDocument documentFromURL:url]];
 	
-	if (![defaultParser parse:error]) {
+	SVGSVGElement* rootNode = (SVGSVGElement*) [defaultParser parse:error];
+	if ( rootNode == nil ) {
 		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
 		[defaultParser release];
 		
-		return NO;
+		return nil;
 	}
 	
 	[defaultParser release];
 	
-	return YES;
+	return rootNode;
 }
 
--(BOOL)parseFileAtURL:(NSURL *)url {
+-(SVGSVGElement*)parseFileAtURL:(NSURL *)url {
 	return [self parseFileAtURL:url error:nil];
 }
 

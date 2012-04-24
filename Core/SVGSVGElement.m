@@ -2,6 +2,12 @@
 
 #import "CALayerWithChildHitTest.h"
 
+@interface SVGSVGElement()
+@property (nonatomic, readwrite) SVGLength documentWidth; // FIXME: maybe can be merged with SVGElement as "boundingBoxWidth" / height ?
+@property (nonatomic, readwrite) SVGLength documentHeight; // FIXME: maybe can be merged with SVGElement as "boundingBoxWidth" / height ?
+@property (nonatomic, readwrite) CGRect viewBoxFrame; // FIXME: maybe can be merged with SVGElement ?
+@end
+
 @implementation SVGSVGElement
 
 @synthesize documentWidth;
@@ -23,11 +29,11 @@
 	id value = nil;
 	
 	if ((value = [attributes objectForKey:@"width"])) {
-		documentWidth = SVGLengthFromNSString( value );
+		self.documentWidth = SVGLengthFromNSString( value );
 	}
 	
 	if ((value = [attributes objectForKey:@"height"])) {
-		documentHeight = SVGLengthFromNSString( value );
+		self.documentHeight = SVGLengthFromNSString( value );
 	}
 	
 	if( (value = [attributes objectForKey:@"viewBox"])) {

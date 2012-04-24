@@ -103,9 +103,10 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	[self.parserExtensions addObject:extension];
 }
 
-- (BOOL)parse:(NSError **)outError {
+- (SVGElement*)parse:(NSError **)outError {
 	errorForCurrentParse = nil;
 	[self.parseWarnings removeAllObjects];
+	_rootNode = nil;
 	
 	/**
 	 Is this file being loaded from disk?
@@ -123,7 +124,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		if( error != nil )
 		{
 			NSLog( @"[%@] ERROR: failed to parse SVG from URL, because failed to download file at URL = %@, error = %@", [self class], self.sourceURL, error );
-			return false;
+			return nil;
 		}
 	}
 	
@@ -134,7 +135,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	file = fopen(cPath, "r");
 	
 	if (!file)
-		return NO;
+		return nil;
 	}
 	
 	xmlParserCtxtPtr ctx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
@@ -143,7 +144,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	{
 	if (!ctx) {
 		fclose(file);
-		return NO;
+		return nil;
 	}
 	}
 	
@@ -182,7 +183,10 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		_failed = TRUE;
 	}
 	
-	return !_failed;	
+	if( _failed )
+		return nil;
+	else
+		return _rootNode;
 }
 
 /** ADAM: use this for a higher-performance, *non-blocking* parse
@@ -308,6 +312,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		
 		NSObject<SVGParserExtension>* parserHandlingTheParentItem = parentStackItem.parserForThisItem;
 
+		BOOL closingRootTag = FALSE;
 		if( parentStackItem.item == nil )
 		{
 			/**
@@ -318,6 +323,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 			 tag has been reached
 			 */
 			
+			closingRootTag = TRUE;
 			parserHandlingTheParentItem = stackItem.parserForThisItem;
 		}
 		
@@ -329,6 +335,11 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 			
 			[_storedChars setString:@""];
 			_storingChars = NO;
+		}
+		
+		if( closingRootTag )
+		{
+			_rootNode = (SVGElement*) stackItem.item;
 		}
 	}
 }
