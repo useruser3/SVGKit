@@ -8,7 +8,9 @@
 
 #import "SVGTextElement.h"
 
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 @implementation SVGTextElement
 
@@ -26,7 +28,10 @@
     [super dealloc];
 }
 
-- (void)parseAttributes:(NSDictionary *)attributes {
+- (void)parseAttributes:(NSDictionary *)attributes
+{
+    [super parseAttributes:attributes];
+    
 	id value = nil;
     
 	if ((value = [attributes objectForKey:@"x"])) {

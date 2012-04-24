@@ -38,7 +38,7 @@
 
 - (void)dealloc {
 	CGPathRelease(_path);
-    [_fillPattern release];
+    self.fillPattern = nil;
     
 	[super dealloc];
 }
@@ -114,7 +114,7 @@
 }
 
 - (CALayer *) newLayer {
-	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];//[[CAShapeLayer layer] retain];
+	CAShapeLayer* _shapeLayer = [CAShapeLayerWithHitTest layer];
 	_shapeLayer.name = self.identifier;
 		[_shapeLayer setValue:self.identifier forKey:kSVGElementIdentifier];
 	_shapeLayer.opacity = _opacity;

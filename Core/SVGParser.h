@@ -46,11 +46,17 @@
 #else
 	__weak SVGDocument *_document;
 #endif
+	NSError* errorForCurrentParse;
 }
+
+@property(nonatomic,retain) NSURL* sourceURL;
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
 
+@property(nonatomic, retain) NSMutableArray* parseWarnings;
+
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document;
+- (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document;
 
 - (BOOL)parse:(NSError **)outError;
 
