@@ -8,9 +8,10 @@
 #import "SVGElement+Private.h"
 #import "SVGDocument.h"
 #import "SVGPathElement.h"
-#import "SVGShapeElement+Private.h"
 #import "CGPathAdditions.h"
 #import "SVGDocument+CA.h"
+
+#if ENABLE_SVGPATHVIEW_CLASS
 
 @implementation SVGPathView
 
@@ -106,3 +107,4 @@
 #endif
 
 @end
+#endif

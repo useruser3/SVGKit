@@ -8,7 +8,6 @@
 #import "SVGEllipseElement.h"
 
 #import "SVGElement+Private.h"
-#import "SVGShapeElement+Private.h"
 
 @implementation SVGEllipseElement
 
@@ -46,7 +45,7 @@
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathAddEllipseInRect(path, NULL, CGRectMake(_cx - _rx, _cy - _ry, _rx * 2, _ry * 2));
 	
-	[self loadPath:path];
+	[self setPathByCopyingPathFromLocalSpace:path];
 	CGPathRelease(path);
 }
 

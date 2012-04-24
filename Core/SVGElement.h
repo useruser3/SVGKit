@@ -1,10 +1,14 @@
-//
-//  SVGElement.h
-//  SVGKit
-//
-//  Copyright Matt Rajca 2010-2011. All rights reserved.
-//
-
+/**
+ SVGElement
+ 
+ Data:
+  - "children": child elements (SVG is a tree: every element can have chidren)
+  - "localName": the final part of the SVG tag (e.g. in "<svg:element", this would be "element")
+  - "identifier": the SVG id attribute (e.g. "<svg:svg id="this is the identifier"")
+  - "transformRelative": identity OR the transform to apply BEFORE rendering this element (and its children)
+  - "parent": the parent node in the SVG tree
+ 
+ */
 #import <QuartzCore/QuartzCore.h>
 
 @class SVGDocument;

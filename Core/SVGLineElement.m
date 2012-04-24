@@ -8,7 +8,6 @@
 #import "SVGLineElement.h"
 
 #import "SVGElement+Private.h"
-#import "SVGShapeElement+Private.h"
 
 @implementation SVGLineElement
 
@@ -42,7 +41,7 @@
 	CGPathMoveToPoint(path, NULL, _x1, _y1);
 	CGPathAddLineToPoint(path, NULL, _x2, _y2);
 	
-	[self loadPath:path];
+	[self setPathByCopyingPathFromLocalSpace:path];
 	CGPathRelease(path);
 }
 

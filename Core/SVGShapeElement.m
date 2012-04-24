@@ -29,15 +29,15 @@
 @synthesize strokeWidth = _strokeWidth;
 @synthesize strokeColor = _strokeColor;
 
-@synthesize path = _path;
+@synthesize pathRelative = _pathRelative;
 
 - (void)finalize {
-	CGPathRelease(_path);
+	CGPathRelease(_pathRelative);
 	[super finalize];
 }
 
 - (void)dealloc {
-	CGPathRelease(_path);
+	CGPathRelease(_pathRelative);
     self.fillPattern = nil;
     
 	[super dealloc];
@@ -102,14 +102,14 @@
 	}
 }
 
-- (void)loadPath:(CGPathRef)aPath {
-	if (_path) {
-		CGPathRelease(_path);
-		_path = NULL;
+- (void)setPathByCopyingPathFromLocalSpace:(CGPathRef)aPath {
+	if (_pathRelative) {
+		CGPathRelease(_pathRelative);
+		_pathRelative = NULL;
 	}
 	
 	if (aPath) {
-		_path = CGPathCreateCopy(aPath);
+		_pathRelative = CGPathCreateCopy(aPath);
 	}
 }
 
@@ -165,7 +165,7 @@
 #endif
 	
 	CGMutablePathRef pathToPlaceInLayer = CGPathCreateMutable();
-	CGPathAddPath( pathToPlaceInLayer, &transformFromSVGUnitsToScreenUnits, _path);	
+	CGPathAddPath( pathToPlaceInLayer, &transformFromSVGUnitsToScreenUnits, _pathRelative);	
 	
     CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox( pathToPlaceInLayer ));
 	

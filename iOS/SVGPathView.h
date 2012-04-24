@@ -8,6 +8,9 @@
 
 #import "SVGView.h"
 
+#define ENABLE_SVGPATHVIEW_CLASS 0
+
+#if ENABLE_SVGPATHVIEW_CLASS
 
 #if NS_BLOCKS_AVAILABLE
 
@@ -52,3 +55,5 @@ typedef void (^layerTreeEnumerator)(CALayer* child);
 - (void) pathView:(SVGPathView*)v path:(SVGPathElement*)path touch:(UITouch*)touch;
 
 @end
+
+#endif

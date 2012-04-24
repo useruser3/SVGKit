@@ -8,7 +8,6 @@
 #import "SVGPolygonElement.h"
 
 #import "SVGElement+Private.h"
-#import "SVGShapeElement+Private.h"
 
 #import "SVGPointsAndPathsParser.h"
 
@@ -62,7 +61,7 @@
 									   path:path
 								 relativeTo:lastCoordinate];
 	
-	[self loadPath:path];
+	[self setPathByCopyingPathFromLocalSpace:path];
 	CGPathRelease(path);
 }
 

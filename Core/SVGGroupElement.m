@@ -1,10 +1,15 @@
-//
-//  SVGGroupElement.m
-//  SVGKit
-//
-//  Copyright Matt Rajca 2010-2011. All rights reserved.
-//
-
+/**
+ SVGGroupElement.m
+ 
+ In SVG, every single element can contain children.
+ 
+ However, the SVG spec defines a special (optional) "group" element, that is never rendered,
+ but allows additional nesting (e.g. for programmatic / organizational purposes).
+ 
+ This is the "G" tag.
+ 
+ To make sure we don't lose this info when loading an SVG, we store a special element for it.
+ */
 #import "SVGGroupElement.h"
 
 #import "SVGDocument.h"

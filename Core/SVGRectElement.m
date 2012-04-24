@@ -8,7 +8,6 @@
 #import "SVGRectElement.h"
 
 #import "SVGElement+Private.h"
-#import "SVGShapeElement+Private.h"
 
 @interface SVGRectElement ()
 
@@ -98,7 +97,7 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius) {
 		NSLog(@"Unsupported corner-radius configuration: rx differs from ry");
 	}
 	
-	[self loadPath:path];
+	[self setPathByCopyingPathFromLocalSpace:path];
 	CGPathRelease(path);
 }
 

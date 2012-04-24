@@ -8,7 +8,6 @@
 #import "SVGPathElement.h"
 
 #import "SVGElement+Private.h"
-#import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
 #import "SVGPointsAndPathsParser.h"
 
@@ -137,7 +136,7 @@
     } while (foundCmd);
 	
     
-	[self loadPath:path];
+	[self setPathByCopyingPathFromLocalSpace:path];
 	CGPathRelease(path);
 }
 

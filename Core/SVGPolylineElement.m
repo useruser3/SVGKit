@@ -8,7 +8,6 @@
 #import "SVGPolylineElement.h"
 
 #import "SVGElement+Private.h"
-#import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
 
 @implementation SVGPolylineElement
@@ -21,7 +20,7 @@
 	if ((value = [attributes objectForKey:@"points"])) {
 		CGMutablePathRef path = SVGPathFromPointsInString([value UTF8String], NO);
 		
-		[self loadPath:path];
+		[self setPathByCopyingPathFromLocalSpace:path];
 		CGPathRelease(path);
 	}
 }
