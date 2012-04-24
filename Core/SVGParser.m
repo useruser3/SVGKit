@@ -11,6 +11,8 @@
 
 #import "SVGDocument.h"
 
+#import "SVGParserSVG.h"
+
 @interface SVGParserStackItem : NSObject
 @property(nonatomic,retain) NSObject<SVGParserExtension>* parserForThisItem;
 @property(nonatomic,retain) NSObject* item;
@@ -46,36 +48,40 @@ static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
++(SVGParser*) parserPlainSVGDocument:(SVGDocument*) document
+{
+	SVGParser *parser = [[[SVGParser alloc] initWithDocument:document] autorelease];
+	
+	SVGParserSVG *subParserSVG = [[[SVGParserSVG alloc] init] autorelease];
+	
+	[parser.parserExtensions addObject:subParserSVG];
+	
+	return parser;
+}
+
 #define READ_CHUNK_SZ 1024*10
 
-- (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document {
+- (id)initWithDocument:(SVGDocument *)doc {
 	self = [super init];
 	if (self) {
 		self.parseWarnings = [NSMutableArray array];
 		self.parserExtensions = [NSMutableArray array];
-		_path = [aPath copy];
-		self.sourceURL = nil;
-		_document = document;
+		
+		_document = doc;
+		if( _document.hasSourceFile )
+		{
+			_path = [doc.filePath copy];
+		}
+		else if( _document.hasSourceURL )
+		{
+			self.sourceURL = doc.URL;
+		}
+		
 		_storedChars = [NSMutableString new];
 		_elementStack = [NSMutableArray new];
 		_failed = NO;
 		
 	}
-	return self;
-}
-
-- (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document {
-	self = [super init];
-	if( self) {
-		self.parseWarnings = [NSMutableArray array];
-		self.parserExtensions = [NSMutableArray array];
-		self.sourceURL = aURL;
-		_document = document;
-		_storedChars = [NSMutableString new];
-		_elementStack = [NSMutableArray new];
-		_failed = NO;
-	}
-	
 	return self;
 }
 
@@ -85,6 +91,16 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	[_elementStack release];
 	self.parserExtensions = nil;
 	[super dealloc];
+}
+
+- (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension
+{
+	if( self.parserExtensions == nil )
+	{
+		self.parserExtensions = [NSMutableArray new];
+	}
+	
+	[self.parserExtensions addObject:extension];
 }
 
 - (BOOL)parse:(NSError **)outError {

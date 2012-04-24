@@ -7,40 +7,40 @@
 
 #import "SVGView.h"
 
-#import "SVGDocument.h"
-#import "SVGDocument+CA.h"
+#import "SVGImage.h"
+#import "SVGImage+CA.h"
 
 @implementation SVGView
 
-@synthesize document = _document;
+@synthesize image = _image;
 
-- (id)initWithDocument:(SVGDocument *)document {
+- (id)initWithImage:(SVGImage *)document {
 	NSParameterAssert(document != nil);
 	
-	self = [self initWithFrame:CGRectMake(0.0f, 0.0f, document.width, document.height)];
+	self = [self initWithFrame:CGRectMake(0.0f, 0.0f, document.size.width, document.size.height)];
 	if (self) {
-		self.document = document;
+		self.image = document;
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[_document release];
+	[_image release];
 	
 	[super dealloc];
 }
 
-- (void)setDocument:(SVGDocument *)aDocument {
-	if (_document != aDocument) {
-		[_document release];
-		_document = [aDocument retain];
+- (void)setImage:(SVGImage *)aDocument {
+	if (_image != aDocument) {
+		[_image release];
+		_image = [aDocument retain];
 
         for (NSInteger i = [self.layer.sublayers count] - 1; i >= 0; i--) {
             CALayer *sublayer = [self.layer.sublayers objectAtIndex:i];
             [sublayer removeFromSuperlayer];
         }
 
-		[self.layer addSublayer:[_document layerTree]];
+		[self.layer addSublayer:[_image layerTree]];
 	}
 }
 

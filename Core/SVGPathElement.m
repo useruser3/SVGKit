@@ -7,7 +7,6 @@
 
 #import "SVGPathElement.h"
 
-#import "SVGElement+Private.h"
 #import "SVGUtils.h"
 #import "SVGPointsAndPathsParser.h"
 

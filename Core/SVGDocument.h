@@ -1,61 +1,31 @@
-//
-//  SVGDocument.h
-//  SVGKit
-//
-//  Copyright Matt Rajca 2010-2011. All rights reserved.
-//
-
-#import "SVGElement.h"
-
-#import "SVGGroupElement.h"
-
-#import "SVGParser.h"
-
-#if NS_BLOCKS_AVAILABLE
-typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
-#endif
-
-@class SVGDefsElement;
-
-@interface SVGDocument : SVGElement < SVGLayeredElement > {
-}
-
-// only absolute widths and heights are supported (no percentages)
-@property (nonatomic, readonly) CGFloat width;
-@property (nonatomic, readonly) CGFloat height;
-@property (nonatomic, readonly, copy) NSString *version;
-@property (nonatomic, readonly) CGRect viewBoxFrame;
-
-// convenience accessors to parsed children
-@property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *desc; // 'description' is reserved by NSObject
-@property (nonatomic, readonly) SVGDefsElement *defs;
-
-/*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things",
- * this dictionary contains a mapping from "value of id attribute" to "SVGGroupElement"
- *
- * see also: anonymousGraphicsGroups (for groups that have no "id=" attribute)
+/**
+ SVGDocument.h
+ 
+ NB: this is NOTHING SIMILAR to the old SVGDocument class that existed in early versions of SVGKit. This is a complete
+ re-write.
+ 
+ SVGDocument represents the info about a file that was read from disk or over the web during parsing.
+ 
+ Once it has been parsed / loaded, that info is NOT PART OF the in-memory SVG any more - if you were to save the file, you could
+ save it in a different location, with a different SVG Spec, etc.
+ 
+ However, it's useful for debugging (and for optional "save this document in same place it was loaded from / same format"
+ to store this info at runtime just in case it's needed later.
+ 
+ Also, it helps during parsing to keep track of some document-level information
+ 
  */
-@property (nonatomic, retain) NSDictionary *graphicsGroups;
-/*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things",
- * this array contains all the groups that had no "id=" attribute
- *
- * see also: graphicsGroups (for groups that have an "id=" attribute)
- */
-@property (nonatomic, retain) NSArray *anonymousGraphicsGroups;
 
-+ (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
-+ (id)documentNamed:(NSString *)name; // 'name' in mainBundle
-+ (id)documentFromURL:(NSURL *)url;
-+ (id)documentWithContentsOfFile:(NSString *)aPath;
+#import <Foundation/Foundation.h>
 
-- (id)initWithContentsOfFile:(NSString *)aPath;
-- (id)initWithFrame:(CGRect)frame;
+@interface SVGDocument : NSObject
 
-#if NS_BLOCKS_AVAILABLE
+@property(nonatomic,retain) NSString* svgLanguageVersion; /*< <svg version=""> */
+@property(nonatomic) BOOL hasSourceFile, hasSourceURL;
+@property(nonatomic,retain) NSString* filePath;
+@property(nonatomic,retain) NSURL* URL;
 
-- (void) applyAggregator:(SVGElementAggregationBlock)aggregator;
-
-#endif
++(SVGDocument*) documentFromFilename:(NSString*) p;
++(SVGDocument*) documentFromURL:(NSURL*) u;
 
 @end

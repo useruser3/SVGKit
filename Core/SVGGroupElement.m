@@ -12,9 +12,6 @@
  */
 #import "SVGGroupElement.h"
 
-#import "SVGDocument.h"
-
-#import "SVGElement+Private.h"
 #import "CALayerWithChildHitTest.h"
 
 @implementation SVGGroupElement

@@ -1,9 +1,28 @@
-//
-//  SVGParser.h
-//  SVGKit
-//
-//  Copyright Matt Rajca 2010-2011. All rights reserved.
-//
+/**
+ SVGParser.h
+ 
+ The main parser for SVGKit. All the magic starts here
+ 
+ PARSING
+ ---
+ Actual parsing of an SVG is split into three places:
+ 
+ 1. High level, XML parsing: this file (SVGParser)
+ 2. Mid level, parsing the structure of a document, and special XML tags: any class that extends "SVGParserExtension"
+ 3. Mid level, parsing SVG tags only: SVGParserSVG (it's an extension that just does base SVG)
+ 4. Low level, parsing individual tags within a file, and precise co-ordinates: all the "SVG...Element" classes parse themselves
+ 
+ IDEALLY, we'd like to change that to:
+ 
+ 1. High level, XML parsing: this file (SVGParser)
+ 2. Mid level, parsing the structure of a document, and special XML tags: any class that extends "SVGParserExtension"
+ 3. Mid level, parsing SVG tags only, but also handling all the different tags: SVGParserSVG
+ 4. Lowest level, parsing co-ordinate lists, numbers, strings: yacc/lex parser (in an unnamed class that hasn't been written yet)
+ */
+
+#import <Foundation/Foundation.h>
+
+#import "SVGParserExtension.h"
 
 /*! RECOMMENDED: leave this set to 1 to get warnings about "legal, but poorly written" SVG */
 #define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1
@@ -12,27 +31,6 @@
 #define DEBUG_VERBOSE_LOG_EVERY_TAG 0
 
 @class SVGDocument;
-
-@protocol SVGParserExtension <NSObject>
-
-/*! Array of URI's as NSString's, one string for each XMLnamespace that this parser-extension can parse
- *
- * e.g. the main parser returns "[NSArray arrayWithObjects:@"http://www.w3.org/2000/svg", nil];"
- */
--(NSArray*) supportedNamespaces;
-
-/*! Array of NSString's, one string for each XML tag (within a supported namespace!) that this parser-extension can parse
- *
- * e.g. the main parser returns "[NSArray arrayWithObjects:@"svg", @"title", @"defs", @"path", @"line", @"circle", ...etc... , nil];"
- */
--(NSArray*) supportedTags;
-
-- (NSObject*)handleStartElement:(NSString *)name document:(SVGDocument*) document xmlns:(NSString*) namespaceURI attributes:(NSMutableDictionary *)attributes;
--(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument;
--(void) parseContent:(NSMutableString*) content forItem:(NSObject*) item;
--(BOOL) createdItemShouldStoreContent:(NSObject*) item;
-
-@end
 
 @interface SVGParser : NSObject {
   @private
@@ -44,7 +42,7 @@
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 	SVGDocument *_document;
 #else
-	__weak SVGDocument *_document;
+	__weak SVGDocument *_document; // TODO: should this still be weak? probably not?
 #endif
 	NSError* errorForCurrentParse;
 }
@@ -55,8 +53,11 @@
 
 @property(nonatomic, retain) NSMutableArray* parseWarnings;
 
-- (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document;
-- (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document;
++(SVGParser*) parserPlainSVGDocument:(SVGDocument*) document;
+
+- (id)initWithDocument:(SVGDocument *)doc;
+
+- (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 
 - (BOOL)parse:(NSError **)outError;
 

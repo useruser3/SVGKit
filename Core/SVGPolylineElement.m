@@ -7,7 +7,6 @@
 
 #import "SVGPolylineElement.h"
 
-#import "SVGElement+Private.h"
 #import "SVGUtils.h"
 
 @implementation SVGPolylineElement

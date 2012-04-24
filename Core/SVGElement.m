@@ -25,7 +25,6 @@
  */
 @implementation SVGElement
 
-@synthesize document = _document;
 
 @synthesize children = _children;
 @synthesize stringValue = _stringValue;
@@ -57,10 +56,9 @@
     return self;
 }
 
-- (id)initWithDocument:(SVGDocument *)aDocument name:(NSString *)name {
+- (id)initWithName:(NSString *)name {
 	self = [self init];
 	if (self) {
-		_document = aDocument;
 		_localName = [name retain];
 #if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 		self.transformRelative = CGAffineTransformIdentity;

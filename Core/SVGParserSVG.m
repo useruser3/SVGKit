@@ -1,9 +1,10 @@
 #import "SVGParserSVG.h"
 
+#import "SVGSVGElement.h"
 #import "SVGCircleElement.h"
 #import "SVGDefsElement.h"
 #import "SVGDescriptionElement.h"
-#import "SVGDocument.h"
+//#import "SVGDocument.h"
 #import "SVGEllipseElement.h"
 #import "SVGGroupElement.h"
 #import "SVGImageElement.h"
@@ -24,6 +25,7 @@ static NSDictionary *elementMap;
 		
 		if (!elementMap) {
 			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
+						   [SVGSVGElement class], @"svg",
                           [SVGCircleElement class], @"circle",
                           [SVGDefsElement class], @"defs",
                           [SVGDescriptionElement class], @"description",
@@ -55,29 +57,15 @@ static NSDictionary *elementMap;
 			nil];
 }
 
+/** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
 -(NSArray*) supportedTags
 {
-	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allKeys]];
-	[result addObject:@"svg"];
-	[result addObject:@"defs"];
-    [result addObject:@"g"];
-    [result addObject:@"path"];
-	return result;
+	return [NSMutableArray arrayWithArray:[elementMap allKeys]];
 }
 
 - (NSObject*) handleStartElement:(NSString *)name document:(SVGDocument*) svgDocument xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
 	if( [[self supportedNamespaces] containsObject:prefix] )
 	{
-		NSObject* result = nil;
-		
-		// handle svg:svg tag separately
-		if ([name isEqualToString:@"svg"]) {
-			result = svgDocument;
-			[svgDocument parseAttributes:attributes];
-			
-			return result;
-		}
-		
 		Class elementClass = [elementMap objectForKey:name];
 		
 		if (!elementClass) {
@@ -92,8 +80,18 @@ static NSDictionary *elementMap;
 			[attributes addEntriesFromDictionary:[SVGParser NSDictionaryFromCSSAttributes:style]];
 		}
 		
-		SVGElement *element = [[elementClass alloc] initWithDocument:svgDocument name:name];
+		SVGElement *element = [[elementClass alloc] initWithName:name];
 		[element parseAttributes:attributes];
+		
+		/** special case: <svg:svg ... version="XXX"> */
+		if( [@"svg" isEqualToString:name] )
+		{
+			NSString* svgVersion = nil;
+			if ((svgVersion = [attributes objectForKey:@"version"])) {
+				svgDocument.svgLanguageVersion = svgVersion;
+			}
+		}
+		
 		
 		return element;
 	}
@@ -126,14 +124,18 @@ static NSDictionary *elementMap;
 		
 		if ( parent == nil ) // i.e. the root SVG tag
 		{
-			NSLog(@"[%@] PARSER_INFO: asked to add object to nil parent; i.e. we've hit the root of the tree; setting global variables on the SVG Document now", [self class]);
-			[svgDocument setGraphicsGroups:_graphicsGroups];
-			[svgDocument setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
+			NSAssert( [child isKindOfClass:[SVGSVGElement class]], @"Unexpected root element: expected root tag to be an '<SVG...>' tag. Instead found an: %@", childElement.identifier );
+			
+			NSLog(@"[%@] PARSER_INFO: asked to add object to nil parent; i.e. we've hit the root of the tree; setting global variables on the SVG rootElement now", [self class]);
+			SVGSVGElement *rootSVGElement = (SVGSVGElement*) childElement;
+			[rootSVGElement setGraphicsGroups:_graphicsGroups];
+			[rootSVGElement setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
 			
 			[_graphicsGroups release];
 			[_anonymousGraphicsGroups release];
 			_graphicsGroups = nil;
 			_anonymousGraphicsGroups = nil;
+			
 		}
 		else
 		{

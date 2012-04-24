@@ -1,15 +1,8 @@
-//
-//  SVGDocument+CA.m
-//  SVGKit
-//
-//  Copyright Matt Rajca 2011. All rights reserved.
-//
-
-#import "SVGDocument+CA.h"
+#import "SVGImage+CA.h"
 
 #import <objc/runtime.h>
 
-@implementation SVGDocument (CA)
+@implementation SVGImage (CA)
 
 static const char *kLayerTreeKey = "svgkit.layertree";
 
@@ -36,7 +29,7 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	CALayer *cachedLayerTree = objc_getAssociatedObject(self, (void *) kLayerTreeKey);
 	
 	if (!cachedLayerTree) {
-		cachedLayerTree = [self layerWithElement:self];
+		cachedLayerTree = [self layerWithElement:self.rootElement];
 		objc_setAssociatedObject(self, (void *) kLayerTreeKey, cachedLayerTree, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
@@ -62,13 +55,49 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 		}
 	}
 	
-	if (element != self) {
+	if (element != self.rootElement) {
 		[element layoutLayer:layer];
 	}
 
     [layer setNeedsDisplay];
 	
 	return layer;
+}
+
+- (void) addSVGLayerTree:(CALayer*) layer withIdentifier:(NSString*) layerID toDictionary:(NSMutableDictionary*) layersByID
+{
+	[layersByID setValue:layer forKey:layerID];
+	
+	if ( [layer.sublayers count] < 1 )
+	{
+		return;
+	}
+	
+	for (CALayer *subLayer in layer.sublayers)
+	{
+		NSString* subLayerID = [subLayer valueForKey:kSVGElementIdentifier];
+		
+		if( subLayerID != nil )
+		{
+			NSLog(@"[%@] element id: %@ => layer: %@", [self class], subLayerID, subLayer);
+			
+			[self addSVGLayerTree:subLayer withIdentifier:subLayerID toDictionary:layersByID];
+			
+		}
+	}
+}
+
+- (NSDictionary*) dictionaryOfLayers
+{
+	NSMutableDictionary* layersByElementId = [NSMutableDictionary dictionary];
+	
+	CALayer* rootLayer = [self layerTree];
+	
+	[self addSVGLayerTree:rootLayer withIdentifier:self.rootElement.identifier toDictionary:layersByElementId];
+	
+	NSLog(@"[%@] ROOT element id: %@ => layer: %@", [self class], self.rootElement.identifier, rootLayer);
+	
+    return layersByElementId;
 }
 
 @end

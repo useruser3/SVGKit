@@ -7,12 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class SVGDocument;
+@class SVGImage;
 
 @interface SVGView : UIView { }
 
-@property (nonatomic, retain) SVGDocument *document;
+@property (nonatomic, retain) SVGImage *image;
 
-- (id)initWithDocument:(SVGDocument *)document; // set frame to position
+- (id)initWithImage:(SVGImage *)image; // set frame to position
 
 @end

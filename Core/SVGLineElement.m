@@ -7,8 +7,6 @@
 
 #import "SVGLineElement.h"
 
-#import "SVGElement+Private.h"
-
 @implementation SVGLineElement
 
 @synthesize x1 = _x1;

@@ -7,8 +7,6 @@
 
 #import "SVGEllipseElement.h"
 
-#import "SVGElement+Private.h"
-
 @implementation SVGEllipseElement
 
 @synthesize cx = _cx;

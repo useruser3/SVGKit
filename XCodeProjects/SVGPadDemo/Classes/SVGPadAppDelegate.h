@@ -5,6 +5,9 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 @class RootViewController, DetailViewController;
 
 @interface SVGPadAppDelegate : NSObject < UIApplicationDelegate > { }

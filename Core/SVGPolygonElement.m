@@ -7,8 +7,6 @@
 
 #import "SVGPolygonElement.h"
 
-#import "SVGElement+Private.h"
-
 #import "SVGPointsAndPathsParser.h"
 
 @interface SVGPolygonElement()

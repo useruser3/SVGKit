@@ -7,7 +7,6 @@
 
 #import "SVGRectElement.h"
 
-#import "SVGElement+Private.h"
 
 @interface SVGRectElement ()
 

@@ -23,12 +23,6 @@
 /*! This is used when generating CALayer objects, to store the id of the SVGElement that created the CALayer */
 #define kSVGElementIdentifier @"SVGElementIdentifier"
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-@property (nonatomic, readonly)  SVGDocument *document;
-#else
-@property (nonatomic, readonly)  __weak  SVGDocument *document;
-#endif
-
 @property (nonatomic, readonly) NSArray *children;
 @property (nonatomic, readonly, copy) NSString *stringValue;
 @property (nonatomic, readonly) NSString *localName;
@@ -53,7 +47,7 @@
 
 + (BOOL)shouldStoreContent; // to optimize parser, default is NO
 
-- (id)initWithDocument:(SVGDocument *)aDocument name:(NSString *)name;
+- (id)initWithName:(NSString *)name;
 
 - (void)loadDefaults; // should be overriden to set element defaults
 

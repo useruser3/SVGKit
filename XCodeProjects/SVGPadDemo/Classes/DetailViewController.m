@@ -55,9 +55,9 @@
 {
     [self.contentView removeFromSuperview];
     
-	SVGDocument *document = [SVGDocument documentNamed:[name stringByAppendingPathExtension:@"svg"]];
-	NSLog(@"[%@] Freshly loaded document (name = %@) has width,height = (%.2f, %.2f)", [self class], name, document.width, document.height );
-	self.contentView = [[[SVGView alloc] initWithDocument:document] autorelease];
+	SVGImage *document = [SVGImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
+	NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
+	self.contentView = [[[SVGView alloc] initWithImage:document] autorelease];
 	
 	if (_name) {
 		[_name release];
@@ -67,8 +67,8 @@
 	_name = [name copy];
     
     [self.scrollView addSubview:self.contentView];
-    [self.scrollView setContentSize:CGSizeMake(document.width, document.height)];
-    [self.scrollView zoomToRect:CGRectMake(0, 0, document.width, document.height) animated:YES];
+    [self.scrollView setContentSize: document.size];
+    [self.scrollView zoomToRect:CGRectMake(0, 0, document.size.width, document.size.height) animated:YES];
 }
 
 - (IBAction)animate:(id)sender {
@@ -79,7 +79,7 @@
 
 
 - (void)shakeHead {
-	CALayer *layer = [self.contentView.document layerWithIdentifier:@"head"];
+	CALayer *layer = [self.contentView.image layerWithIdentifier:@"head"];
 	
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
 	animation.duration = 0.25f;
