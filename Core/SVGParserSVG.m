@@ -13,7 +13,6 @@
 #import "SVGPolylineElement.h"
 #import "SVGRectElement.h"
 #import "SVGTitleElement.h"
-#import "SVGElement+Private.h"
 
 @implementation SVGParserSVG
 

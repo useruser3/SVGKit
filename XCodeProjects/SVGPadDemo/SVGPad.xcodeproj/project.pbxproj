@@ -90,7 +90,6 @@
 		3BF503CA148C62D900CC7D17 /* SVGDocument+CA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGDocument+CA.m"; sourceTree = "<group>"; };
 		3BF503CB148C62D900CC7D17 /* SVGDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGDocument.h; sourceTree = "<group>"; };
 		3BF503CC148C62D900CC7D17 /* SVGDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGDocument.m; sourceTree = "<group>"; };
-		3BF503CD148C62D900CC7D17 /* SVGElement+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGElement+Private.h"; sourceTree = "<group>"; };
 		3BF503CE148C62D900CC7D17 /* SVGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGElement.h; sourceTree = "<group>"; };
 		3BF503CF148C62D900CC7D17 /* SVGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGElement.m; sourceTree = "<group>"; };
 		3BF503D0148C62D900CC7D17 /* SVGEllipseElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGEllipseElement.h; sourceTree = "<group>"; };
@@ -263,7 +262,6 @@
 				3BF503CA148C62D900CC7D17 /* SVGDocument+CA.m */,
 				3BF503CB148C62D900CC7D17 /* SVGDocument.h */,
 				3BF503CC148C62D900CC7D17 /* SVGDocument.m */,
-				3BF503CD148C62D900CC7D17 /* SVGElement+Private.h */,
 				3BF503CE148C62D900CC7D17 /* SVGElement.h */,
 				3BF503CF148C62D900CC7D17 /* SVGElement.m */,
 				3BF503D0148C62D900CC7D17 /* SVGEllipseElement.h */,

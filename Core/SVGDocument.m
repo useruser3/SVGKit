@@ -9,7 +9,6 @@
 
 #import "SVGDefsElement.h"
 #import "SVGDescriptionElement.h"
-#import "SVGElement+Private.h"
 #import "SVGParser.h"
 #import "SVGTitleElement.h"
 #import "SVGPathElement.h"

@@ -44,6 +44,13 @@
 @property (nonatomic, retain) SVGElement *parent;
 #endif
 
+#pragma mark - ORIGINALLY PACKAGE-PROTECTED
+- (void)parseAttributes:(NSDictionary *)attributes;
+- (void)addChild:(SVGElement *)element;
+- (void)parseContent:(NSString *)content;
+
+#pragma mark - Public
+
 + (BOOL)shouldStoreContent; // to optimize parser, default is NO
 
 - (id)initWithDocument:(SVGDocument *)aDocument name:(NSString *)name;
@@ -60,6 +67,7 @@
 /*! Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform */
 -(CGAffineTransform) transformAbsolute;
 #endif
+
 
 @end
 
