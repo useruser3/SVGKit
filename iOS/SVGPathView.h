@@ -1,7 +1,13 @@
-//
-//  SVGPathView.h
-//  SVGKit
-//
+/**
+ SVGPathView
+ 
+ NB: currently disabled, needs minor updating, but we don't have unit tests to check the changes still work
+ 
+ Purpose: load an SVG full of paths, then be able to select a path and peel that off into a new view. 
+ 
+ 
+ SVGPathView works nicely for that one purpose, it re-orients the path from a document such that it can be displayed properly on it's lonesome rather than whatever other world coords it used to be.
+ */
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/CAShapeLayer.h>
