@@ -191,17 +191,17 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
 
-+ (UIImage *)animatedImageNamed:(NSString *)name duration:(NSTimeInterval)duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0)  // read sequnce of files with suffix starting at 0 or 1
++ (UIImage *)animatedImageNamed:(NSString *)name duration:(NSTimeInterval)duration ;//__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0)  // read sequnce of files with suffix starting at 0 or 1
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
 }
-+ (UIImage *)animatedResizableImageNamed:(NSString *)name capInsets:(UIEdgeInsets)capInsets duration:(NSTimeInterval)duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0) // squence of files
++ (UIImage *)animatedResizableImageNamed:(NSString *)name capInsets:(UIEdgeInsets)capInsets duration:(NSTimeInterval)duration ;//__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0) // squence of files
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
 }
-+ (UIImage *)animatedImageWithImages:(NSArray *)images duration:(NSTimeInterval)duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0)
++ (UIImage *)animatedImageWithImages:(NSArray *)images duration:(NSTimeInterval)duration ;//__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0)
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
