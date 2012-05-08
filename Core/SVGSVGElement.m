@@ -40,7 +40,16 @@
 		NSArray* boxElements = [(NSString*) value componentsSeparatedByString:@" "];
 		
 		_viewBoxFrame = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
-		NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
+        
+        //osx logging
+#if TARGET_OS_IPHONE        
+        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
+#endif
+        //mac logging
+#if TARGET_OS_MAC
+     NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBoxFrame));    
+#endif   
+        
 	}
 }
 
