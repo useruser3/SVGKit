@@ -121,7 +121,6 @@
 		FILE *file = [handle pointerValue]; // objc cannot cope with using C-pointers as pointers, without some help
 		
 		bytesRead = fread(chunk, 1, READ_CHUNK_SZ, file);
-		NSLog(@"Read %i bytes from file", bytesRead);
 		
 		return bytesRead;
 	}

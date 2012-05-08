@@ -4,9 +4,47 @@ SVGKit
 SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest iOS SDK's.
 
 BRANCH: "transforms"
------
+======
 
 This specific branch contains a MASSIVE re-factor of the original SVGKit, aiming to make it easier to use in your apps. Please read the "usage" instructions carefully - they have changed from previous SVGKit versions!
+
+
+Usage - Basic (iPhone/iPad)
+-----
+
+To use this, you must:
+  1. Load an SVG file
+  2. Convert the document to CALayer's which Apple can render
+
+The easiest way to do this is:
+  1. SVGImage *im = [SVGImage imageNamed:@"my_svg_file"]; //this loads the file, parses the SVG, and outputs an SVGImage object
+  2. [self.view.layer addSublayer:[im layerTree]]; // SVGImage objects can export themselves as Apple's CALayer's
+
+NB: if you want to render the same SVG in different places on screen, you cannot do that right now. This is because the refactored code has gone back to old code that prevented you from doing this. Will be fixed in future!
+
+
+Usage - Advanced (iPHone/iPad)
+-----
+
+The big change with this branch, apart from requiring fewer lines of code, is that you can now do easy loading of different files. e.g.
+
+  - [SVGParser parse: (SVGSource*)]; // anything that's an "SVGSource" can be parsed
+
+  - [SVGSource sourceWithFile:@"monkey.svg"]; // create a source from disk...
+  - [SVGSource sourceWithURL:@"http://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg"]; // create a source from disk...
+
+  - (SVGParser*).currentParseRun.warnings; // array of NSError objects, each one a "WARNING" from the parser
+  - (SVGParser*).currentParseRun.errorsFatal; // array of NSError objects, each one a "FATAL ERROR" from the parser - if your SVG didn't render at all, this is why!
+  - (SVGParser*).currentParseRun.errorsRecoverable; // array of NSError objects, each one a "RECOVERABLE ERROR" from the parser - if your SVG didn't render correctly, this is why! (although you probably still got to see something)
+
+  - (SVGImage*).parseErrorsAndWarnings; // this is a convenience pointer to (SVGParder*).currentParseRun used above
+
+Usage - OS X
+-----
+
+UNSUPPORTED: the code exists, but none of the maintainers have used it recently, so we're not even sure if the OS X build still works!
+
+Feel free to report any issues or suggest improvements in the issue tracker
 
 
 Installation
@@ -30,46 +68,3 @@ iOS (iPhone/iPad):
   9. (Optional but recommended): Add the framework "libxml2.dylib"
 
 OS X: ...this needs updating; some minor code changes are needed to "fix" this project. The OS X framework currently DOES NOT BUILD because iOS classes are being referenced in a couple of places.
-
-
-Usage - iPhone/iPad
------
-
-To use this, you must:
-  1. Load an SVG file
-  2. Convert the document to CALayer's which Apple can render
-
-The easiest way to do this is:
-  1. SVGImage *im = [SVGImage imageNamed:@"my_svg_file"]; //this loads the file, parses the SVG, and outputs an SVGImage object
-  2. [self.view.layer addSublayer:[im layerTree]]; // SVGImage objects can export themselves as Apple's CALayer's
-
-NB: if you want to render the same SVG in different places on screen, you cannot do that right now. This is because the refactored code has gone back to old code that prevented you from doing this. Will be fixed in future!
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-	// Override point for customization after application launch.
-	[self.window makeKeyAndVisible];
-	
-	NSString* svgFilename = @"Monkey";
-	
-	NSLog( @"[%@] Loading SVG document, filename = %@", [self class], svgFilename );
-	
-	/** Optional: if you're using the parser extensions, add them here
-	[SVGDocument addSVGParserExtension:[[SVGParserConquest alloc] init]];
-	*/
-
-	SVGDocument* svgDocument = [SVGDocument documentNamed:svgFilename];
-
-	SVGDocumentView* docView = [SVGDocumentView documentViewWithDocument:svgDocument];
-		
-	[self.window.layer addSublayer:docView.rootLayer];	
-	
-    return YES;
-}
-
-Usage - OS X
------
-
-UNSUPPORTED: the code exists, but none of the maintainers have used it recently, so we're not even sure if the OS X build still works!
-
-Feel free to report any issues or suggest improvements in the issue tracker

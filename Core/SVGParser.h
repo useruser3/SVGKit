@@ -42,24 +42,10 @@
 	BOOL _storingChars;
 	NSMutableString *_storedChars;
 	NSMutableArray *_elementStack;
-	
-	/*
-	 ADAM OLD - removing?
-	 BOOL _failed;
-	 NSString *_path;
-	 
-	SVGElement *_rootNode;
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-	SVGSource *_document;
-#else
-	__weak SVGSource *_document; // TODO: should this still be weak? probably not?
-#endif
-	NSError* errorForCurrentParse;
-	 */
 }
 
-@property(nonatomic,retain) SVGSource* source;
-@property(nonatomic,retain) SVGParseResult* currentParseRun;
+@property(nonatomic,readonly) SVGSource* source;
+@property(nonatomic,readonly) SVGParseResult* currentParseRun;
 
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;

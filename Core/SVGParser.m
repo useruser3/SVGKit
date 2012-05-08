@@ -29,6 +29,11 @@
 
 @end
 
+@interface SVGParser(privateProperties)
+@property(nonatomic,retain, readwrite) SVGSource* source;
+@property(nonatomic,retain, readwrite) SVGParseResult* currentParseRun;
+@end
+
 @implementation SVGParser
 
 @synthesize source;
