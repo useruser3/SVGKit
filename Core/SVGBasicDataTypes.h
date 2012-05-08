@@ -10,7 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
+
 #import <UIKit/UIKit.h>
+
+#endif
+
 
 /**
  http://www.w3.org/TR/SVG11/types.html#InterfaceSVGLength
