@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite) SVGSVGElement* rootElement;
 @property (nonatomic, readwrite) SVGLength svgWidth;
 @property (nonatomic, readwrite) SVGLength svgHeight;
+@property (nonatomic, readwrite) SVGParseResult* parseErrorsAndWarnings;
 
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
@@ -33,10 +34,11 @@
 
 @synthesize svgWidth = _width;
 @synthesize svgHeight = _height;
+@synthesize source;
+@synthesize parseErrorsAndWarnings;
 @synthesize rootElement = _rootElement;
 
 @dynamic title, svgDescription, defs;
-
 
 + (SVGImage *)imageNamed:(NSString *)name {
 	NSParameterAssert(name != nil);
@@ -83,15 +85,15 @@
 		
 		NSError* parseError = nil;
 		self.rootElement = [self parseFileAtPath:aPath error:&parseError];
+		
 		if ( self.rootElement == nil ) {
-			NSLog(@"[%@] MISSING OR CORRUPT FILE, OR FILE USES FEATURES THAT SVGKit DOES NOT YET SUPPORT, COULD NOT CREATE DOCUMENT: path = %@, error = %@", [self class], aPath, parseError);
 			
-			[self release];
-			return nil;
+		}
+		else {
+			self.svgWidth = self.rootElement.documentWidth;
+			self.svgHeight = self.rootElement.documentHeight;
 		}
 		
-		self.svgWidth = self.rootElement.documentWidth;
-		self.svgHeight = self.rootElement.documentHeight;
 		
 	}
 	return self;
@@ -107,10 +109,12 @@
 		
 		self.rootElement = [self parseFileAtURL:url];
 		if ( self.rootElement == nil ) {
-			NSLog(@"[%@] ERROR: COULD NOT FIND SVG AT URL = %@", [self class], url);
 			
-			[self release];
-			return nil;
+		}
+		else
+		{
+			self.svgWidth = self.rootElement.documentWidth;
+			self.svgHeight = self.rootElement.documentHeight;
 		}
 	}
 	return self;
@@ -180,7 +184,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
-- (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
+ - (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
@@ -210,18 +214,13 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 
 - (SVGSVGElement*)parseFileAtPath:(NSString *)aPath error:(NSError**) error {
 	
-	SVGDocument* parsedDocument = [SVGDocument documentFromFilename:aPath];
-	SVGParser* defaultParser = [SVGParser parserPlainSVGDocument:parsedDocument];
+	SVGSource* parsedDocument = [SVGSource sourceFromFilename:aPath];
+	self.parseErrorsAndWarnings = [SVGParser parseSourceUsingDefaultSVGParser:parsedDocument];
 	
-	SVGSVGElement* rootNode = (SVGSVGElement*) [defaultParser parse:error];
-	if ( rootNode == nil ) {
-		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
-		[defaultParser release];
-		
+	if( parseErrorsAndWarnings.rootOfSVGTree != nil )
+		return (SVGSVGElement*) parseErrorsAndWarnings.rootOfSVGTree;
+	else
 		return nil;
-	}
-	
-	return rootNode;
 }
 
 - (SVGSVGElement*)parseFileAtPath:(NSString *)aPath {
@@ -230,19 +229,13 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 
 
 -(SVGSVGElement*)parseFileAtURL:(NSURL *)url error:(NSError**) error {
-	SVGParser* defaultParser = [SVGParser parserPlainSVGDocument:[SVGDocument documentFromURL:url]];
+	SVGSource* parsedDocument = [SVGSource sourceFromURL:url];
+	self.parseErrorsAndWarnings = [SVGParser parseSourceUsingDefaultSVGParser:parsedDocument];
 	
-	SVGSVGElement* rootNode = (SVGSVGElement*) [defaultParser parse:error];
-	if ( rootNode == nil ) {
-		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
-		[defaultParser release];
-		
+	if( parseErrorsAndWarnings.rootOfSVGTree != nil )
+		return (SVGSVGElement*) parseErrorsAndWarnings.rootOfSVGTree;
+	else
 		return nil;
-	}
-	
-	[defaultParser release];
-	
-	return rootNode;
 }
 
 -(SVGSVGElement*)parseFileAtURL:(NSURL *)url {

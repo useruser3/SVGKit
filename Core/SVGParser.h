@@ -22,9 +22,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SVGSource.h"
+#import "SVGParseResult.h"
+
 #import "SVGParserExtension.h"
 
 #import "SVGElement.h"
+
+
 
 /*! RECOMMENDED: leave this set to 1 to get warnings about "legal, but poorly written" SVG */
 #define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1
@@ -32,38 +37,49 @@
 /*! Verbose parser logging - ONLY needed if you have an SVG file that's failing to load / crashing */
 #define DEBUG_VERBOSE_LOG_EVERY_TAG 0
 
-@class SVGDocument;
-
 @interface SVGParser : NSObject {
   @private
-	NSString *_path;
-	BOOL _failed;
 	BOOL _storingChars;
 	NSMutableString *_storedChars;
 	NSMutableArray *_elementStack;
+	
+	/*
+	 ADAM OLD - removing?
+	 BOOL _failed;
+	 NSString *_path;
+	 
 	SVGElement *_rootNode;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-	SVGDocument *_document;
+	SVGSource *_document;
 #else
-	__weak SVGDocument *_document; // TODO: should this still be weak? probably not?
+	__weak SVGSource *_document; // TODO: should this still be weak? probably not?
 #endif
 	NSError* errorForCurrentParse;
+	 */
 }
 
-@property(nonatomic,retain) NSURL* sourceURL;
+@property(nonatomic,retain) SVGSource* source;
+@property(nonatomic,retain) SVGParseResult* currentParseRun;
+
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
 
-@property(nonatomic, retain) NSMutableArray* parseWarnings;
+#pragma mark - NEW
 
-+(SVGParser*) parserPlainSVGDocument:(SVGDocument*) document;
++ (SVGParseResult*) parseSourceUsingDefaultSVGParser:(SVGSource*) source;
+- (SVGParseResult*) parseSynchronously;
 
-- (id)initWithDocument:(SVGDocument *)doc;
+
++(NSDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css;
+
+
+
+#pragma mark - OLD - POTENTIALLY DELETE THESE ONCE THEY'VE ALL BEEN CHECKED AND CONVERTED
+
+- (id)initWithSource:(SVGSource *)doc;
 
 - (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 
-- (SVGElement*)parse:(NSError **)outError;
 
-+(NSDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css;
 
 @end

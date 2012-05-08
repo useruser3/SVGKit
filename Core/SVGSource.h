@@ -1,10 +1,7 @@
 /**
- SVGDocument.h
- 
- NB: this is NOTHING SIMILAR to the old SVGDocument class that existed in early versions of SVGKit. This is a complete
- re-write.
- 
- SVGDocument represents the info about a file that was read from disk or over the web during parsing.
+ SVGSource.h
+  
+ SVGSource represents the info about a file that was read from disk or over the web during parsing.
  
  Once it has been parsed / loaded, that info is NOT PART OF the in-memory SVG any more - if you were to save the file, you could
  save it in a different location, with a different SVG Spec, etc.
@@ -18,14 +15,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SVGDocument : NSObject
+@interface SVGSource : NSObject
 
 @property(nonatomic,retain) NSString* svgLanguageVersion; /*< <svg version=""> */
 @property(nonatomic) BOOL hasSourceFile, hasSourceURL;
 @property(nonatomic,retain) NSString* filePath;
 @property(nonatomic,retain) NSURL* URL;
 
-+(SVGDocument*) documentFromFilename:(NSString*) p;
-+(SVGDocument*) documentFromURL:(NSURL*) u;
++(SVGSource*) sourceFromFilename:(NSString*) p;
++(SVGSource*) sourceFromURL:(NSURL*) u;
+
+-(id) newHandle:(NSError**) error;
+-(void) closeHandle:(id) handle;
+-(int) handle:(id) handle readNextChunk:(char *) chunk maxBytes:(int) READ_CHUNK_SZ;
 
 @end

@@ -56,19 +56,28 @@
     [self.contentView removeFromSuperview];
     
 	SVGImage *document = [SVGImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
-	NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
-	self.contentView = [[[SVGView alloc] initWithImage:document] autorelease];
 	
-	if (_name) {
-		[_name release];
-		_name = nil;
+	if( document.parseErrorsAndWarnings.rootOfSVGTree != nil )
+	{
+		NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
+		
+		self.contentView = [[[SVGView alloc] initWithImage:document] autorelease];
+		
+		if (_name) {
+			[_name release];
+			_name = nil;
+		}
+		
+		_name = [name copy];
+		
+		[self.scrollView addSubview:self.contentView];
+		[self.scrollView setContentSize: document.size];
+		[self.scrollView zoomToRect:CGRectMake(0, 0, document.size.width, document.size.height) animated:YES];
 	}
-	
-	_name = [name copy];
-    
-    [self.scrollView addSubview:self.contentView];
-    [self.scrollView setContentSize: document.size];
-    [self.scrollView zoomToRect:CGRectMake(0, 0, document.size.width, document.size.height) animated:YES];
+	else
+	{
+		[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+	}
 }
 
 - (IBAction)animate:(id)sender {

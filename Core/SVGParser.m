@@ -6,10 +6,7 @@
 //
 
 #import "SVGParser.h"
-
 #import <libxml/parser.h>
-
-#import "SVGDocument.h"
 
 #import "SVGParserSVG.h"
 
@@ -34,9 +31,11 @@
 
 @implementation SVGParser
 
-@synthesize sourceURL;
+@synthesize source;
+@synthesize currentParseRun;
+
+
 @synthesize parserExtensions;
-@synthesize parseWarnings;
 
 static xmlSAXHandler SAXHandler;
 
@@ -48,45 +47,38 @@ static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
-+(SVGParser*) parserPlainSVGDocument:(SVGDocument*) document
++ (SVGParseResult*) parseSourceUsingDefaultSVGParser:(SVGSource*) source;
 {
-	SVGParser *parser = [[[SVGParser alloc] initWithDocument:document] autorelease];
+	SVGParser *parser = [[[SVGParser alloc] initWithSource:source] autorelease];
 	
 	SVGParserSVG *subParserSVG = [[[SVGParserSVG alloc] init] autorelease];
 	
 	[parser.parserExtensions addObject:subParserSVG];
 	
-	return parser;
+	SVGParseResult* result = [parser parseSynchronously];
+	
+	return result;
 }
+
 
 #define READ_CHUNK_SZ 1024*10
 
-- (id)initWithDocument:(SVGDocument *)doc {
+- (id)initWithSource:(SVGSource *) s {
 	self = [super init];
 	if (self) {
-		self.parseWarnings = [NSMutableArray array];
 		self.parserExtensions = [NSMutableArray array];
 		
-		_document = doc;
-		if( _document.hasSourceFile )
-		{
-			_path = [doc.filePath copy];
-		}
-		else if( _document.hasSourceURL )
-		{
-			self.sourceURL = doc.URL;
-		}
+		self.source = s;
 		
 		_storedChars = [NSMutableString new];
 		_elementStack = [NSMutableArray new];
-		_failed = NO;
-		
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[_path release];
+	self.currentParseRun = nil;
+	self.source = nil;
 	[_storedChars release];
 	[_elementStack release];
 	self.parserExtensions = nil;
@@ -103,90 +95,60 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	[self.parserExtensions addObject:extension];
 }
 
-- (SVGElement*)parse:(NSError **)outError {
-	errorForCurrentParse = nil;
-	[self.parseWarnings removeAllObjects];
-	_rootNode = nil;
+- (SVGParseResult*) parseSynchronously
+{
+	self.currentParseRun = [[SVGParseResult new] autorelease];
 	
-	/**
-	 Is this file being loaded from disk?
-	 Or from network?
-	 */
-	NSURLResponse* response;
-	NSData* httpData = nil;
-	if( self.sourceURL != nil )
+	/*
+	// 1. while (source has chunks of BYTES)
+	// 2.   read a chunk from source, send to libxml
+	// 3.   if libxml failed chunk, break
+	// 4. return result
+	*/
+	
+	NSError* error = nil;
+	id handle = [source newHandle:&error];
+	if( error != nil )
 	{
-		NSURLRequest* request = [NSURLRequest requestWithURL:self.sourceURL];
-		NSError* error = nil;
-		
-		httpData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-		
-		if( error != nil )
-		{
-			NSLog( @"[%@] ERROR: failed to parse SVG from URL, because failed to download file at URL = %@, error = %@", [self class], self.sourceURL, error );
-			return nil;
-		}
+		[currentParseRun addSourceError:error];
+		return  currentParseRun;
 	}
-	
-	FILE *file;
-	if( self.sourceURL == nil )
-	{
-	const char *cPath = [_path fileSystemRepresentation];
-	file = fopen(cPath, "r");
-	
-	if (!file)
-		return nil;
-	}
+	char buff[READ_CHUNK_SZ];
 	
 	xmlParserCtxtPtr ctx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
 	
-	if( self.sourceURL == nil )
+	if( ctx ) // if libxml init succeeds...
 	{
-	if (!ctx) {
-		fclose(file);
-		return nil;
-	}
-	}
-	
-	if( self.sourceURL == nil )
-	{
-		size_t read = 0;
-		char buff[READ_CHUNK_SZ];
-	while ((read = fread(buff, 1, READ_CHUNK_SZ, file)) > 0) {
-		if (xmlParseChunk(ctx, buff, read, 0) != 0) {
-			_failed = YES;
-			NSLog(@"An error occured while parsing the current XML chunk");
+		// 1. while (source has chunks of BYTES)
+		// 2.   read a chunk from source, send to libxml
+		int bytesRead = [source handle:handle readNextChunk:&buff maxBytes:READ_CHUNK_SZ];
+		while( bytesRead > 0 )
+		{
+			int libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
 			
-			break;
-		}
-	}
-	
-	fclose(file);
-	}
-	else
-	{
-			if (xmlParseChunk(ctx, (const char*) [httpData bytes], [httpData length], 0) != 0) {
-				_failed = YES;
-//				NSLog(@"An error occured while parsing the current XML chunk");
+			if( [currentParseRun.errorsFatal count] > 0 )
+			{
+			/** NB this old code is no longer needed - we're doing higher-quality error handling!
+			if ( (libXmlParserParseError != 0)
+			{*/
+				// 3.   if libxml failed chunk, break
+				NSLog(@"[%@] libXml reported internal parser error with magic libxml code = %i (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], libXmlParserParseError );
+				currentParseRun.libXMLFailed = YES;
 				
+				break;
+			}
 		}
 	}
 	
-	if (!_failed)
+	[source closeHandle:handle]; // close the handle NO MATTER WHAT
+	
+	if (!currentParseRun.libXMLFailed)
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
 	
 	xmlFreeParserCtxt(ctx);
 	
-	if( errorForCurrentParse != nil )
-	{
-		*outError = errorForCurrentParse;
-		_failed = TRUE;
-	}
-	
-	if( _failed )
-		return nil;
-	else
-		return _rootNode;
+	// 4. return result
+	return currentParseRun;
 }
 
 /** ADAM: use this for a higher-performance, *non-blocking* parse
@@ -210,7 +172,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 			{
 				NSObject* subParserResult = nil;
 				
-			if( nil != (subParserResult = [subParser handleStartElement:name document:_document xmlns:prefix attributes:attributes]) )
+			if( nil != (subParserResult = [subParser handleStartElement:name document:source xmlns:prefix attributes:attributes]) )
 			{
 				NSLog(@"[%@] tag: <%@:%@> -- handled by subParser: %@", [self class], prefix, name, subParser );
 				
@@ -328,7 +290,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		}
 		
 		NSLog(@"[%@] DEBUG-PARSER: ended tag (</%@>): telling parser (%@) to add that item to tree-parent = %@", [self class], name, parserHandlingTheParentItem, parentStackItem.item );
-		[parserHandlingTheParentItem addChildObject:stackItem.item toObject:parentStackItem.item inDocument:_document];
+		[parserHandlingTheParentItem addChildObject:stackItem.item toObject:parentStackItem.item];// inDocument:_document];
 		
 		if ( [stackItem.parserForThisItem createdItemShouldStoreContent:stackItem.item]) {
 			[stackItem.parserForThisItem parseContent:_storedChars forItem:stackItem.item];
@@ -339,7 +301,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		
 		if( closingRootTag )
 		{
-			_rootNode = (SVGElement*) stackItem.item;
+			currentParseRun.rootOfSVGTree = (SVGElement*) stackItem.item;
 		}
 	}
 }
@@ -364,23 +326,12 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 	[self handleFoundCharacters:chars length:len];
 }
 
--(void) setParseError:(NSError*) error
-{
-	errorForCurrentParse = error;
-}
-
--(void) addParseWarning:(NSError*) error
-{
-	errorForCurrentParse = error;
-}
-
-- (void)handleError {
-	_failed = YES;
-}
-
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	NSLog(@"Error encountered during parse: %s", msg);
-	[ (SVGParser *) ctx handleError];
+	SVGParseResult* parseResult = ((SVGParser*) ctx).currentParseRun;
+	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																				  (NSString*) msg, NSLocalizedDescriptionKey,
+																				nil]]];
 }
 
 static void	unparsedEntityDeclaration(void * ctx, 
@@ -402,24 +353,37 @@ static void structuredError		(void * userData,
 	 */
 	xmlErrorLevel errorLevel = error->level;
 	
-	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																	[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
-																	[NSNumber numberWithInt:error->line], @"lineNumber",
-																	nil]
-	 ];
+	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+									[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
+									[NSNumber numberWithInt:error->line], @"lineNumber",
+									[NSNumber numberWithInt:error->int2], @"columnNumber",
+									nil];
 	
+	if( error->str1 )
+		[details setValue:[NSString stringWithCString:error->str1 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo1"];
+	if( error->str2 )
+		[details setValue:[NSString stringWithCString:error->str2 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo2"];
+	if( error->str3 )
+		[details setValue:[NSString stringWithCString:error->str3 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo3"];
+	
+	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
+	
+	SVGParseResult* parseResult = ((SVGParser*) userData).currentParseRun;
 	switch( errorLevel )
 	{
 		case XML_ERR_WARNING:
 		{
-			NSLog(@"Warning: parser reports: %@", objcError );
+			[parseResult addParseWarning:objcError];
 		}break;
 			
-		case XML_ERR_ERROR: /** FIXME: ADAM: "non-fatal" errors should be reported as warnings, but SVGDocument + this class need rewriting to return something better than "TRUE/FALSE" on parse finishing */
+		case XML_ERR_ERROR:
+		{
+			[parseResult addParseErrorRecoverable:objcError];
+		}break;
+			
 		case XML_ERR_FATAL:
 		{
-			NSLog(@"Error: parser reports: %@", objcError );
-			[(SVGParser*) userData setParseError:objcError];
+			[parseResult addParseErrorFatal:objcError];
 		}
         default:
             break;

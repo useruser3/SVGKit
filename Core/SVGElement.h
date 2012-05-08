@@ -11,8 +11,6 @@
  */
 #import <QuartzCore/QuartzCore.h>
 
-@class SVGDocument;
-
 #define EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES 1
 
 @interface SVGElement : NSObject {

@@ -14,7 +14,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SVGDocument.h"
+#import "SVGSource.h"
 
 @protocol SVGParserExtension <NSObject>
 
@@ -30,8 +30,8 @@
  */
 -(NSArray*) supportedTags;
 
-- (NSObject*)handleStartElement:(NSString *)name document:(SVGDocument*) document xmlns:(NSString*) namespaceURI attributes:(NSMutableDictionary *)attributes;
--(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument;
+- (NSObject*)handleStartElement:(NSString *)name document:(SVGSource*) document xmlns:(NSString*) namespaceURI attributes:(NSMutableDictionary *)attributes;
+-(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent;// NOT SURE IF THIS IS NEEDED ANYWHERE ANY MORE: inDocument:(SVGSource*) svgSource;
 -(void) parseContent:(NSMutableString*) content forItem:(NSObject*) item;
 -(BOOL) createdItemShouldStoreContent:(NSObject*) item;
 

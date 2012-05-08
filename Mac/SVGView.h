@@ -5,12 +5,12 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-@class SVGDocument;
+@class SVGSource;
 
 @interface SVGView : NSView { }
 
-@property (nonatomic, retain) SVGDocument *document;
+@property (nonatomic, retain) SVGSource *document;
 
-- (id)initWithDocument:(SVGDocument *)document; // set frame to position
+- (id)initWithDocument:(SVGSource *)document; // set frame to position
 
 @end

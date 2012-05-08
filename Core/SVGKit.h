@@ -23,6 +23,7 @@
 	#import "SVGPolylineElement.h"
 	#import "SVGRectElement.h"
 	#import "SVGShapeElement.h"
+#import "SVGSource.h"
 	#import "SVGTitleElement.h"
 	#import "SVGUtils.h"
 	#import "SVGView.h"
@@ -32,8 +33,8 @@
 	#import <SVGKit/SVGCircleElement.h>
 	#import <SVGKit/SVGDefsElement.h>
 	#import <SVGKit/SVGDescriptionElement.h>
-	#import <SVGKit/SVGDocument.h>
-	#import <SVGKit/SVGDocument+CA.h>
+	#import <SVGKit/SVGSource.h>
+	#import <SVGKit/SVGSource+CA.h>
 	#import <SVGKit/SVGElement.h>
 	#import <SVGKit/SVGEllipseElement.h>
 	#import <SVGKit/SVGGroupElement.h>

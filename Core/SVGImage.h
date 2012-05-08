@@ -26,10 +26,10 @@
 #import "SVGBasicDataTypes.h"
 #import "SVGElement.h"
 #import "SVGSVGElement.h"
-
 #import "SVGGroupElement.h"
 
 #import "SVGParser.h"
+#import "SVGSource.h"
 
 #if NS_BLOCKS_AVAILABLE
 typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
@@ -37,7 +37,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 
 @class SVGDefsElement;
 
-@interface SVGImage : NSObject /** Apple made it effectively impossible to extend UIImage: it is immutable */
+@interface SVGImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
 {
 }
 
@@ -47,6 +47,8 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 
 @property (nonatomic, readonly) SVGLength svgWidth;
 @property (nonatomic, readonly) SVGLength svgHeight;
+@property (nonatomic, readonly) SVGSource* source;
+@property (nonatomic, readonly) SVGParseResult* parseErrorsAndWarnings;
 
 // convenience accessors to parsed children
 @property (nonatomic, readonly) NSString *title;
@@ -55,8 +57,9 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 
 @property (nonatomic, readonly) SVGSVGElement* rootElement;
 
-+ (SVGImage *)imageNamed:(NSString *)name;      // load from main bundle
 
+#pragma mark - methods to quick load an SVG as an image
++ (SVGImage *)imageNamed:(NSString *)name;      // load from main bundle
 + (SVGImage *)imageWithContentsOfFile:(NSString *)path;
 + (SVGImage *)imageWithData:(NSData *)data;
 

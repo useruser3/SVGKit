@@ -54,8 +54,9 @@
 		663DEFEC14BFD6BC00C56E07 /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663DEFEB14BFD6BC00C56E07 /* Location_European_nation_states.svg */; };
 		663DEFEF14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663DEFEE14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg */; };
 		6640BCEB154722FB00AC0AE8 /* SVGSVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6640BCEA154722FB00AC0AE8 /* SVGSVGElement.m */; };
-		6640BCEE15472B6F00AC0AE8 /* SVGDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6640BCED15472B6E00AC0AE8 /* SVGDocument.m */; };
 		66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66436E5214A0BCEF001CC769 /* CALayerExporter.m */; };
+		66799EE715595A9A00DD8BCF /* SVGParseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 66799EE315595A9A00DD8BCF /* SVGParseResult.m */; };
+		66799EE815595A9A00DD8BCF /* SVGSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 66799EE515595A9A00DD8BCF /* SVGSource.m */; };
 		667DA28415470FDB00BDABCC /* SVGBasicDataTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 667DA28315470FD900BDABCC /* SVGBasicDataTypes.m */; };
 		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
@@ -146,11 +147,13 @@
 		663DEFEE14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "map-test-Location_European_nation_states-ukonly.svg"; sourceTree = "<group>"; };
 		6640BCE9154722FA00AC0AE8 /* SVGSVGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSVGElement.h; sourceTree = "<group>"; };
 		6640BCEA154722FB00AC0AE8 /* SVGSVGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGSVGElement.m; sourceTree = "<group>"; };
-		6640BCEC15472B6D00AC0AE8 /* SVGDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGDocument.h; sourceTree = "<group>"; };
-		6640BCED15472B6E00AC0AE8 /* SVGDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGDocument.m; sourceTree = "<group>"; };
 		6640BCEF15472D2700AC0AE8 /* SVGParserExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParserExtension.h; sourceTree = "<group>"; };
 		66436E5114A0BCEF001CC769 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
 		66436E5214A0BCEF001CC769 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
+		66799EE315595A9A00DD8BCF /* SVGParseResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGParseResult.m; sourceTree = "<group>"; };
+		66799EE415595A9A00DD8BCF /* SVGParseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParseResult.h; sourceTree = "<group>"; };
+		66799EE515595A9A00DD8BCF /* SVGSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGSource.m; sourceTree = "<group>"; };
+		66799EE615595A9A00DD8BCF /* SVGSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSource.h; sourceTree = "<group>"; };
 		667DA28215470FD800BDABCC /* SVGBasicDataTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGBasicDataTypes.h; sourceTree = "<group>"; };
 		667DA28315470FD900BDABCC /* SVGBasicDataTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGBasicDataTypes.m; sourceTree = "<group>"; };
 		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
@@ -265,20 +268,18 @@
 				3BF503C6148C62D900CC7D17 /* SVGDefsElement.m */,
 				3BF503C7148C62D900CC7D17 /* SVGDescriptionElement.h */,
 				3BF503C8148C62D900CC7D17 /* SVGDescriptionElement.m */,
-				6640BCEC15472B6D00AC0AE8 /* SVGDocument.h */,
-				6640BCED15472B6E00AC0AE8 /* SVGDocument.m */,
 				3BF503C9148C62D900CC7D17 /* SVGImage+CA.h */,
 				3BF503CA148C62D900CC7D17 /* SVGImage+CA.m */,
 				667DA28215470FD800BDABCC /* SVGBasicDataTypes.h */,
 				667DA28315470FD900BDABCC /* SVGBasicDataTypes.m */,
-				3BF503CB148C62D900CC7D17 /* SVGImage.h */,
-				3BF503CC148C62D900CC7D17 /* SVGImage.m */,
 				3BF503CE148C62D900CC7D17 /* SVGElement.h */,
 				3BF503CF148C62D900CC7D17 /* SVGElement.m */,
 				3BF503D0148C62D900CC7D17 /* SVGEllipseElement.h */,
 				3BF503D1148C62D900CC7D17 /* SVGEllipseElement.m */,
 				3BF503D2148C62D900CC7D17 /* SVGGroupElement.h */,
 				3BF503D3148C62D900CC7D17 /* SVGGroupElement.m */,
+				3BF503CB148C62D900CC7D17 /* SVGImage.h */,
+				3BF503CC148C62D900CC7D17 /* SVGImage.m */,
 				3BF503D4148C62D900CC7D17 /* SVGImageElement.h */,
 				3BF503D5148C62D900CC7D17 /* SVGImageElement.m */,
 				3BF503D6148C62D900CC7D17 /* SVGKit.h */,
@@ -289,6 +290,8 @@
 				6640BCEF15472D2700AC0AE8 /* SVGParserExtension.h */,
 				3BF503DB148C62D900CC7D17 /* SVGParserSVG.h */,
 				3BF503DC148C62D900CC7D17 /* SVGParserSVG.m */,
+				66799EE315595A9A00DD8BCF /* SVGParseResult.m */,
+				66799EE415595A9A00DD8BCF /* SVGParseResult.h */,
 				3BF503DD148C62D900CC7D17 /* SVGPathElement.h */,
 				3BF503DE148C62D900CC7D17 /* SVGPathElement.m */,
 				663C41C4149E638000F546A3 /* SVGPointsAndPathsParser.h */,
@@ -303,6 +306,8 @@
 				3BF503E6148C62D900CC7D17 /* SVGRectElement.m */,
 				3BF503E8148C62D900CC7D17 /* SVGShapeElement.h */,
 				3BF503E9148C62D900CC7D17 /* SVGShapeElement.m */,
+				66799EE615595A9A00DD8BCF /* SVGSource.h */,
+				66799EE515595A9A00DD8BCF /* SVGSource.m */,
 				6640BCE9154722FA00AC0AE8 /* SVGSVGElement.h */,
 				6640BCEA154722FB00AC0AE8 /* SVGSVGElement.m */,
 				3BF503EA148C62D900CC7D17 /* SVGTextElement.h */,
@@ -475,7 +480,8 @@
 				663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */,
 				66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */,
 				6640BCEB154722FB00AC0AE8 /* SVGSVGElement.m in Sources */,
-				6640BCEE15472B6F00AC0AE8 /* SVGDocument.m in Sources */,
+				66799EE715595A9A00DD8BCF /* SVGParseResult.m in Sources */,
+				66799EE815595A9A00DD8BCF /* SVGSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

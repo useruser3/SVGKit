@@ -7,14 +7,14 @@
 
 #import "SVGView.h"
 
-#import "SVGDocument.h"
-#import "SVGDocument+CA.h"
+#import "SVGSource.h"
+#import "SVGImage+CA.h"
 
 @implementation SVGView
 
 @synthesize document = _document;
 
-- (id)initWithDocument:(SVGDocument *)document {
+- (id)initWithDocument:(SVGSource *)document {
 	NSParameterAssert(document != nil);
 	
 	self = [self initWithFrame:NSMakeRect(0.0f, 0.0f, document.width, document.height)];
@@ -34,7 +34,7 @@
 	[super dealloc];
 }
 
-- (void)setDocument:(SVGDocument *)aDocument {
+- (void)setDocument:(SVGSource *)aDocument {
     [aDocument retain];
     [_document release];
     if (_document != nil) {

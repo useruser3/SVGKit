@@ -4,7 +4,7 @@
 #import "SVGCircleElement.h"
 #import "SVGDefsElement.h"
 #import "SVGDescriptionElement.h"
-//#import "SVGDocument.h"
+//#import "SVGSource.h"
 #import "SVGEllipseElement.h"
 #import "SVGGroupElement.h"
 #import "SVGImageElement.h"
@@ -63,7 +63,7 @@ static NSDictionary *elementMap;
 	return [NSMutableArray arrayWithArray:[elementMap allKeys]];
 }
 
-- (NSObject*) handleStartElement:(NSString *)name document:(SVGDocument*) svgDocument xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
+- (NSObject*) handleStartElement:(NSString *)name document:(SVGSource*) svgSource xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
 	if( [[self supportedNamespaces] containsObject:prefix] )
 	{
 		Class elementClass = [elementMap objectForKey:name];
@@ -88,7 +88,7 @@ static NSDictionary *elementMap;
 		{
 			NSString* svgVersion = nil;
 			if ((svgVersion = [attributes objectForKey:@"version"])) {
-				svgDocument.svgLanguageVersion = svgVersion;
+				svgSource.svgLanguageVersion = svgVersion;
 			}
 		}
 		
@@ -114,7 +114,7 @@ static NSDictionary *elementMap;
 		return false;
 }
 
--(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument
+-(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent// inDocument:(SVGSource*) svgSource
 {
 	SVGElement *parentElement = (SVGElement*) parent;
 	
