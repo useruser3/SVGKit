@@ -137,6 +137,8 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 				
 				break;
 			}
+			
+			bytesRead = [source handle:handle readNextChunk:&buff maxBytes:READ_CHUNK_SZ];
 		}
 	}
 	
