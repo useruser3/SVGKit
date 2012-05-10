@@ -88,11 +88,16 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 
 - (void)drawAsPatternInRect:(CGRect)rect; // draws the image as a CGPattern
 // animated images. When set as UIImageView.image, animation will play in an infinite loop until removed. Drawing will render the first image
+#if TARGET_OS_IPHONE
+
+
+
 
 + (UIImage *)animatedImageNamed:(NSString *)name duration:(NSTimeInterval)duration ;//__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); read sequnce of files with suffix starting at 0 or 1
 + (UIImage *)animatedResizableImageNamed:(NSString *)name capInsets:(UIEdgeInsets)capInsets duration:(NSTimeInterval)duration ;//__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // squence of files
 + (UIImage *)animatedImageWithImages:(NSArray *)images duration:(NSTimeInterval)duration ;//__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
 
+#endif
 /**
  
  TODO: From UIImage. Not needed, I think?
