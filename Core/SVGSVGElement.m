@@ -44,9 +44,8 @@
         //osx logging
 #if TARGET_OS_IPHONE        
         NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
-#endif
+#elif
         //mac logging
-#if TARGET_OS_MAC
      NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBoxFrame));    
 #endif   
         
