@@ -44,8 +44,8 @@
 	NSMutableArray *_elementStack;
 }
 
-@property(nonatomic,readonly) SVGSource* source;
-@property(nonatomic,readonly) SVGParseResult* currentParseRun;
+@property(nonatomic,retain,readonly) SVGSource* source;
+@property(nonatomic,retain,readonly) SVGParseResult* currentParseRun;
 
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
