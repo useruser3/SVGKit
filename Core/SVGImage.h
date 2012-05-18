@@ -31,10 +31,6 @@
 #import "SVGParser.h"
 #import "SVGSource.h"
 
-#if NS_BLOCKS_AVAILABLE
-typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
-#endif
-
 @class SVGDefsElement;
 
 @interface SVGImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
@@ -114,11 +110,6 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 
 #pragma mark - utility methods
 
-#if NS_BLOCKS_AVAILABLE
-
-- (void) applyAggregator:(SVGElementAggregationBlock)aggregator;
-
-#endif
 
 @end
 

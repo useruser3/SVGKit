@@ -5,6 +5,7 @@
 
 #import "SVGPathView.h"
 
+#import "SVGImage+SVGPathView.h"
 #import "SVGImage.h"
 #import "SVGPathElement.h"
 #import "CGPathAdditions.h"
