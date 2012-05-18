@@ -131,7 +131,6 @@
 		66B79B7215475254002F99FF /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 66B79B0715475254002F99FF /* SVGUtils.h */; };
 		66B79B7315475254002F99FF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B79B0815475254002F99FF /* SVGUtils.m */; };
 		66B79B7415475254002F99FF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B79B0815475254002F99FF /* SVGUtils.m */; };
-		66B79B76154752EB002F99FF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B79B75154752EB002F99FF /* libxml2.dylib */; };
 		66EB2218155946A600DE5844 /* SVGParseResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EB2216155946A500DE5844 /* SVGParseResult.h */; };
 		66EB2219155946A600DE5844 /* SVGParseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB2217155946A500DE5844 /* SVGParseResult.m */; };
 		66EB221A155946AC00DE5844 /* SVGParseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB2217155946A500DE5844 /* SVGParseResult.m */; };
@@ -215,7 +214,6 @@
 		66B79B0615475254002F99FF /* SVGTitleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTitleElement.m; sourceTree = "<group>"; };
 		66B79B0715475254002F99FF /* SVGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGUtils.h; sourceTree = "<group>"; };
 		66B79B0815475254002F99FF /* SVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGUtils.m; sourceTree = "<group>"; };
-		66B79B75154752EB002F99FF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
 		66EB2216155946A500DE5844 /* SVGParseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParseResult.h; sourceTree = "<group>"; };
 		66EB2217155946A500DE5844 /* SVGParseResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGParseResult.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66B79B76154752EB002F99FF /* libxml2.dylib in Frameworks */,
 				3BF503A4148C5FD400CC7D17 /* QuartzCore.framework in Frameworks */,
 				3BF503A2148C5FCE00CC7D17 /* CoreGraphics.framework in Frameworks */,
 				3BF503A0148C5FC600CC7D17 /* UIKit.framework in Frameworks */,
@@ -265,7 +262,6 @@
 		0867D691FE84028FC02AAC07 /* SVGKit */ = {
 			isa = PBXGroup;
 			children = (
-				66B79B75154752EB002F99FF /* libxml2.dylib */,
 				C952623F12711D8600434805 /* Framework */,
 				66213434148AF2CF006881E1 /* SVGKitLibrary */,
 			);
