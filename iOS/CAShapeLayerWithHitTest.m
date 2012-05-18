@@ -9,19 +9,22 @@
 
 - (BOOL) containsPoint:(CGPoint)p
 {
-	//BOOL frameContains = CGRectContainsPoint(self.frame, p);
-	BOOL boundsContains = CGRectContainsPoint(self.bounds, p);
-	BOOL pathContains = CGPathContainsPoint(self.path, NULL, p, false);
+	BOOL boundsContains = CGRectContainsPoint(self.bounds, p); // must be BOUNDS because Apple pre-converts the point to local co-ords before running the test
 	
-	if( boundsContains && pathContains )
+	if( boundsContains )
 	{
+		BOOL pathContains = CGPathContainsPoint(self.path, NULL, p, false);
+		
+		if( pathContains )
+		{
 			for( CALayer* subLayer in self.sublayers )
 			{
 				NSLog(@"...contains point, Apple will now check sublayer: %@", subLayer);
 			}
-		return TRUE;
+			return TRUE;
+		}
 	}
-	return NO;
+	return FALSE;
 }
 
 @end
