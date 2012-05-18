@@ -126,7 +126,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	{
 		// 1. while (source has chunks of BYTES)
 		// 2.   read a chunk from source, send to libxml
-		int bytesRead = [source handle:handle readNextChunk:&buff maxBytes:READ_CHUNK_SZ];
+		int bytesRead = [source handle:handle readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
 			int libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
@@ -143,7 +143,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 				break;
 			}
 			
-			bytesRead = [source handle:handle readNextChunk:&buff maxBytes:READ_CHUNK_SZ];
+			bytesRead = [source handle:handle readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
 		}
 	}
 	
