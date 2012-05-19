@@ -7,97 +7,101 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		56BADD1D1567E7F700D72702 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56BADD1C1567E7F700D72702 /* Cocoa.framework */; };
-		56BADD271567E7F700D72702 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56BADD251567E7F700D72702 /* InfoPlist.strings */; };
-		56BADD291567E7F700D72702 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BADD281567E7F700D72702 /* main.m */; };
-		56BADD2D1567E7F700D72702 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 56BADD2B1567E7F700D72702 /* Credits.rtf */; };
-		56BADD301567E7F700D72702 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BADD2F1567E7F700D72702 /* AppDelegate.m */; };
-		56BADD331567E7F700D72702 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56BADD311567E7F700D72702 /* MainMenu.xib */; };
+		56513A1D15680C410081431B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56513A1C15680C410081431B /* Cocoa.framework */; };
+		56513A2715680C410081431B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56513A2515680C410081431B /* InfoPlist.strings */; };
+		56513A2915680C410081431B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56513A2815680C410081431B /* main.m */; };
+		56513A2D15680C410081431B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 56513A2B15680C410081431B /* Credits.rtf */; };
+		56513A3015680C410081431B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56513A2F15680C410081431B /* AppDelegate.m */; };
+		56513A3315680C410081431B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56513A3115680C410081431B /* MainMenu.xib */; };
+		56513AA5156811060081431B /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56513AA4156811060081431B /* SVGKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		56BADD181567E7F700D72702 /* SVGMacDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGMacDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		56BADD1C1567E7F700D72702 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		56BADD1F1567E7F700D72702 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		56BADD201567E7F700D72702 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		56BADD211567E7F700D72702 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		56BADD241567E7F700D72702 /* SVGMacDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SVGMacDemo-Info.plist"; sourceTree = "<group>"; };
-		56BADD261567E7F700D72702 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		56BADD281567E7F700D72702 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		56BADD2A1567E7F700D72702 /* SVGMacDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGMacDemo-Prefix.pch"; sourceTree = "<group>"; };
-		56BADD2C1567E7F700D72702 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		56BADD2E1567E7F700D72702 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		56BADD2F1567E7F700D72702 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		56BADD321567E7F700D72702 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		56513A1815680C410081431B /* SVGMacDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGMacDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56513A1C15680C410081431B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		56513A1F15680C410081431B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		56513A2015680C410081431B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		56513A2115680C410081431B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		56513A2415680C410081431B /* SVGMacDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SVGMacDemo-Info.plist"; sourceTree = "<group>"; };
+		56513A2615680C410081431B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		56513A2815680C410081431B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		56513A2A15680C410081431B /* SVGMacDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGMacDemo-Prefix.pch"; sourceTree = "<group>"; };
+		56513A2C15680C410081431B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		56513A2E15680C410081431B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		56513A2F15680C410081431B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		56513A3215680C410081431B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		56513AA4156811060081431B /* SVGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SVGKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		56BADD151567E7F700D72702 /* Frameworks */ = {
+		56513A1515680C410081431B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56BADD1D1567E7F700D72702 /* Cocoa.framework in Frameworks */,
+				56513A1D15680C410081431B /* Cocoa.framework in Frameworks */,
+				56513AA5156811060081431B /* SVGKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		56BADD0D1567E7F700D72702 = {
+		56513A0D15680C410081431B = {
 			isa = PBXGroup;
 			children = (
-				56BADD221567E7F700D72702 /* SVGMacDemo */,
-				56BADD1B1567E7F700D72702 /* Frameworks */,
-				56BADD191567E7F700D72702 /* Products */,
+				56513A2215680C410081431B /* SVGMacDemo */,
+				56513A1B15680C410081431B /* Frameworks */,
+				56513A1915680C410081431B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		56BADD191567E7F700D72702 /* Products */ = {
+		56513A1915680C410081431B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				56BADD181567E7F700D72702 /* SVGMacDemo.app */,
+				56513A1815680C410081431B /* SVGMacDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		56BADD1B1567E7F700D72702 /* Frameworks */ = {
+		56513A1B15680C410081431B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				56BADD1C1567E7F700D72702 /* Cocoa.framework */,
-				56BADD1E1567E7F700D72702 /* Other Frameworks */,
+				56513AA4156811060081431B /* SVGKit.framework */,
+				56513A1C15680C410081431B /* Cocoa.framework */,
+				56513A1E15680C410081431B /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		56BADD1E1567E7F700D72702 /* Other Frameworks */ = {
+		56513A1E15680C410081431B /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				56BADD1F1567E7F700D72702 /* AppKit.framework */,
-				56BADD201567E7F700D72702 /* CoreData.framework */,
-				56BADD211567E7F700D72702 /* Foundation.framework */,
+				56513A1F15680C410081431B /* AppKit.framework */,
+				56513A2015680C410081431B /* CoreData.framework */,
+				56513A2115680C410081431B /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		56BADD221567E7F700D72702 /* SVGMacDemo */ = {
+		56513A2215680C410081431B /* SVGMacDemo */ = {
 			isa = PBXGroup;
 			children = (
-				56BADD2E1567E7F700D72702 /* AppDelegate.h */,
-				56BADD2F1567E7F700D72702 /* AppDelegate.m */,
-				56BADD311567E7F700D72702 /* MainMenu.xib */,
-				56BADD231567E7F700D72702 /* Supporting Files */,
+				56513A2E15680C410081431B /* AppDelegate.h */,
+				56513A2F15680C410081431B /* AppDelegate.m */,
+				56513A3115680C410081431B /* MainMenu.xib */,
+				56513A2315680C410081431B /* Supporting Files */,
 			);
 			path = SVGMacDemo;
 			sourceTree = "<group>";
 		};
-		56BADD231567E7F700D72702 /* Supporting Files */ = {
+		56513A2315680C410081431B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				56BADD241567E7F700D72702 /* SVGMacDemo-Info.plist */,
-				56BADD251567E7F700D72702 /* InfoPlist.strings */,
-				56BADD281567E7F700D72702 /* main.m */,
-				56BADD2A1567E7F700D72702 /* SVGMacDemo-Prefix.pch */,
-				56BADD2B1567E7F700D72702 /* Credits.rtf */,
+				56513A2415680C410081431B /* SVGMacDemo-Info.plist */,
+				56513A2515680C410081431B /* InfoPlist.strings */,
+				56513A2815680C410081431B /* main.m */,
+				56513A2A15680C410081431B /* SVGMacDemo-Prefix.pch */,
+				56513A2B15680C410081431B /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -105,13 +109,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		56BADD171567E7F700D72702 /* SVGMacDemo */ = {
+		56513A1715680C410081431B /* SVGMacDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56BADD361567E7F700D72702 /* Build configuration list for PBXNativeTarget "SVGMacDemo" */;
+			buildConfigurationList = 56513A3615680C410081431B /* Build configuration list for PBXNativeTarget "SVGMacDemo" */;
 			buildPhases = (
-				56BADD141567E7F700D72702 /* Sources */,
-				56BADD151567E7F700D72702 /* Frameworks */,
-				56BADD161567E7F700D72702 /* Resources */,
+				56513A1415680C410081431B /* Sources */,
+				56513A1515680C410081431B /* Frameworks */,
+				56513A1615680C410081431B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -119,80 +123,80 @@
 			);
 			name = SVGMacDemo;
 			productName = SVGMacDemo;
-			productReference = 56BADD181567E7F700D72702 /* SVGMacDemo.app */;
+			productReference = 56513A1815680C410081431B /* SVGMacDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		56BADD0F1567E7F700D72702 /* Project object */ = {
+		56513A0F15680C410081431B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 56BADD121567E7F700D72702 /* Build configuration list for PBXProject "SVGMacDemo" */;
+			buildConfigurationList = 56513A1215680C410081431B /* Build configuration list for PBXProject "SVGMacDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 56BADD0D1567E7F700D72702;
-			productRefGroup = 56BADD191567E7F700D72702 /* Products */;
+			mainGroup = 56513A0D15680C410081431B;
+			productRefGroup = 56513A1915680C410081431B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				56BADD171567E7F700D72702 /* SVGMacDemo */,
+				56513A1715680C410081431B /* SVGMacDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		56BADD161567E7F700D72702 /* Resources */ = {
+		56513A1615680C410081431B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56BADD271567E7F700D72702 /* InfoPlist.strings in Resources */,
-				56BADD2D1567E7F700D72702 /* Credits.rtf in Resources */,
-				56BADD331567E7F700D72702 /* MainMenu.xib in Resources */,
+				56513A2715680C410081431B /* InfoPlist.strings in Resources */,
+				56513A2D15680C410081431B /* Credits.rtf in Resources */,
+				56513A3315680C410081431B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		56BADD141567E7F700D72702 /* Sources */ = {
+		56513A1415680C410081431B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56BADD291567E7F700D72702 /* main.m in Sources */,
-				56BADD301567E7F700D72702 /* AppDelegate.m in Sources */,
+				56513A2915680C410081431B /* main.m in Sources */,
+				56513A3015680C410081431B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		56BADD251567E7F700D72702 /* InfoPlist.strings */ = {
+		56513A2515680C410081431B /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				56BADD261567E7F700D72702 /* en */,
+				56513A2615680C410081431B /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		56BADD2B1567E7F700D72702 /* Credits.rtf */ = {
+		56513A2B15680C410081431B /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				56BADD2C1567E7F700D72702 /* en */,
+				56513A2C15680C410081431B /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		56BADD311567E7F700D72702 /* MainMenu.xib */ = {
+		56513A3115680C410081431B /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				56BADD321567E7F700D72702 /* en */,
+				56513A3215680C410081431B /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -200,7 +204,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		56BADD341567E7F700D72702 /* Debug */ = {
+		56513A3415680C410081431B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -227,7 +231,7 @@
 			};
 			name = Debug;
 		};
-		56BADD351567E7F700D72702 /* Release */ = {
+		56513A3515680C410081431B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -247,9 +251,13 @@
 			};
 			name = Release;
 		};
-		56BADD371567E7F700D72702 /* Debug */ = {
+		56513A3715680C410081431B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SVGMacDemo/SVGMacDemo-Prefix.pch";
 				INFOPLIST_FILE = "SVGMacDemo/SVGMacDemo-Info.plist";
@@ -258,9 +266,13 @@
 			};
 			name = Debug;
 		};
-		56BADD381567E7F700D72702 /* Release */ = {
+		56513A3815680C410081431B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SVGMacDemo/SVGMacDemo-Prefix.pch";
 				INFOPLIST_FILE = "SVGMacDemo/SVGMacDemo-Info.plist";
@@ -272,24 +284,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		56BADD121567E7F700D72702 /* Build configuration list for PBXProject "SVGMacDemo" */ = {
+		56513A1215680C410081431B /* Build configuration list for PBXProject "SVGMacDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				56BADD341567E7F700D72702 /* Debug */,
-				56BADD351567E7F700D72702 /* Release */,
+				56513A3415680C410081431B /* Debug */,
+				56513A3515680C410081431B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56BADD361567E7F700D72702 /* Build configuration list for PBXNativeTarget "SVGMacDemo" */ = {
+		56513A3615680C410081431B /* Build configuration list for PBXNativeTarget "SVGMacDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				56BADD371567E7F700D72702 /* Debug */,
-				56BADD381567E7F700D72702 /* Release */,
+				56513A3715680C410081431B /* Debug */,
+				56513A3815680C410081431B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 56BADD0F1567E7F700D72702 /* Project object */;
+	rootObject = 56513A0F15680C410081431B /* Project object */;
 }

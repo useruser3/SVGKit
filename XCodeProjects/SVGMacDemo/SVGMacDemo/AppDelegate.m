@@ -7,14 +7,17 @@
 //
 
 #import "AppDelegate.h"
-
+#import <SVGKit/SVGImage.h>
+#import <SVGKit/SVGParser.h>
 @implementation AppDelegate
 
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+
+    SVGSource *source = [SVGSource sourceFromFilename:@"lion.svg"];
+    [SVGParser parseSourceUsingDefaultSVGParser:source];
 }
 
 @end

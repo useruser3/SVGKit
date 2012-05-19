@@ -18,7 +18,7 @@
 @interface SVGSource : NSObject
 
 @property(nonatomic,retain) NSString* svgLanguageVersion; /*< <svg version=""> */
-@property(nonatomic)BOOL hasSourceFile, hasSourceURL;
+@property(nonatomic) BOOL hasSourceFile, hasSourceURL;
 @property(nonatomic,retain) NSString* filePath;
 @property(nonatomic,retain) NSURL* URL;
 
