@@ -366,7 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				C952631B1271225F00434805 /* Core */,
-				C9DA5C5E1273D26A000CB487 /* Mac */,
 				66213545148AF80A006881E1 /* iOS */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -440,14 +439,6 @@
 			);
 			name = Core;
 			path = ../../Core;
-			sourceTree = "<group>";
-		};
-		C9DA5C5E1273D26A000CB487 /* Mac */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Mac;
-			path = ../../Mac;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
