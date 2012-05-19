@@ -30,22 +30,22 @@
     #import "SVGPathView.h"
     #import "SVGPattern.h"
 #else
-	#import <SVGKit/SVGCircleElement.h>
-	#import <SVGKit/SVGDefsElement.h>
-	#import <SVGKit/SVGDescriptionElement.h>
-	#import <SVGKit/SVGSource.h>
-	#import <SVGKit/SVGSource+CA.h>
-	#import <SVGKit/SVGElement.h>
-	#import <SVGKit/SVGEllipseElement.h>
-	#import <SVGKit/SVGGroupElement.h>
-    #import <SVGKit/SVGImageElement.h>
-	#import <SVGKit/SVGLineElement.h>
-	#import <SVGKit/SVGPathElement.h>
-	#import <SVGKit/SVGPolygonElement.h>
-	#import <SVGKit/SVGPolylineElement.h>
-	#import <SVGKit/SVGRectElement.h>
-	#import <SVGKit/SVGShapeElement.h>
-	#import <SVGKit/SVGTitleElement.h>
-	#import <SVGKit/SVGUtils.h>
-	#import <SVGKit/SVGView.h>
+	#import "SVGCircleElement.h"
+	#import "SVGDefsElement.h"
+	#import "SVGDescriptionElement.h"
+	#import "SVGSource.h"
+	//#import "SVGSource+CA.h"
+	#import "SVGElement.h"
+	#import "SVGEllipseElement.h"
+	#import "SVGGroupElement.h"
+    #import "SVGImageElement.h"
+	#import "SVGLineElement.h"
+	#import "SVGPathElement.h"
+	#import "SVGPolygonElement.h"
+	#import "SVGPolylineElement.h"
+	#import "SVGRectElement.h"
+	#import "SVGShapeElement.h"
+	#import "SVGTitleElement.h"
+	#import "SVGUtils.h"
+	#import "SVGView.h"
 #endif
